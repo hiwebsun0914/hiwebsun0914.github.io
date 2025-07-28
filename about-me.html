@@ -1,71 +1,57 @@
 <html>
-    <head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
-        <link href="https://fonts.googleapis.com/css?family=Lora|Ubuntu:300,400,700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="css/styles.css">
-    </head>
-    <body> 
-        <header>
-            <div class="container container-flex">
-                <div class="site-title">
-                    <h1>Living the social life</h1>
-                    <p class="subtitle">A blog exploring minimalism in life</p>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a class="current-page" href="about-me.html">About me</a></li>
-                        <li><a href="recent-posts.html">Recent posts</a></li>
-                    </ul>
-                </nav>
-            </div> <!-- / .container -->
-        </header>
-        
-        <div class="container container-flex">
-            <main role="main">
-                <img src="img/about-me.jpg" class="image-full">
-                <h2>My name is John and living the simple life saved my life</h2>
+<head><meta charset="UTF-8"/><title>关于我</title><link rel="stylesheet" href="css/styles.css"></head>
+<body>
+<header>
+  <div class="container container-flex">
+    <div class="site-title">
+      <h1>HiWebSun 的技术笔记</h1>
+      <p class="subtitle">记录开发、思考与成长的过程</p>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">首页</a></li>
+        <li><a class="current-page" href="about-me.html">关于我</a></li>
+        <li><a href="recent-posts.html">近期文章</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-                <p><strong>I used to be a pack rat</strong>. I had so many things that I thought that I loved, but the truth was I couldn't even appreciate any of it because there was too much.</p>
-                <p>Things were terrible. I had a job that I hated, a home that I didn't want to live in, and I couldn't hold a relationship.</p>
+<div class="container container-flex">
+  <main role="main">
+    <img src="img/about-me.jpg" class="image-full" alt="程序员肖像图">
+    <h2>你好，我是 HiWebSun，一名全栈程序员。</h2>
 
-                <h3>How I turned things around</h3>
-                <p><strong>I was on the verge of a breakdown when I got rid of everything</strong>. I literally put 90% of my possessions in the garbage, sold my place and moved into a smaller apartment, and I quit my job.</p>
-                <p>It wasn't easy at all, but everything around me was in such a bad place, I didn't know what else to do. And it worked.</p>
+    <p>我专注于前端 + 后端开发，热衷于探索新技术，也喜欢将复杂的思维整理成简单的文字记录。在技术社区中不断学习成长，同时也希望通过博客，把我的实践经验和思考分享出来。</p>
 
-                <h3>Now I live the simple life</h3>
-                <p>Now that I'm living a simple life, things are so much better. I'm less stressed, enjoy life and work more, and I have more free time to enjoy.</p>
-                <p>With how much it turned my life around, <strong>I felt like I had no choice but to start sharing how I did it</strong>, and how others can benefit from living a simple life as well, which is why I started this site!</p>
-            </main>
-            
-            <aside class="sidebar">
-                            
-                <div class="sidebar-widget">
-                    <h2 class="widget-title">RECENT POSTS</h2>
-                    <div class="widget-recent-post">
-                        <h3 class="widget-recent-post-title">Keeping cooking simple</h3>
-                        <img src="img/food.jpg" alt="two dumplings on a wood plate with chopsticks" class="widget-image">
-                    </div>
-                    <div class="widget-recent-post">
-                        <h3 class="widget-recent-post-title">Simplicity and work</h3>
-                        <img src="img/work.jpg" alt="a chair white chair at a white desk on a white wall" class="widget-image">
-                    </div>
-                    <div class="widget-recent-post">
-                        <h3 class="widget-recent-post-title">Simple decorations</h3>
-                        <img src="img/deco.jpg" alt="a green plant in a clear, round vase with water in it" class="widget-image">
-                    </div>
-                </div>
-                
-            </aside>
-            
-        </div>
-        
-        
-        <footer>
-            <p><strong>Living the Simple Life</strong></p>
-            <p>Copyright 2019</p>
-        </footer>
+    <h3>我的技术栈</h3>
+    <p>我熟悉 JavaScript / TypeScript、Python、Go 等语言，常用框架包括 React、Vue、Django 和 Express。在数据可视化、爬虫开发、API 设计、自动化工具开发等方面也有丰富经验。</p>
 
-        
-        
-    </body>
+    <h3>为什么建立这个博客？</h3>
+    <p>解决问题是程序员的日常，而“记录问题与解决过程”是提升认知与技术水平的有效方法。这个博客就是我的“技术成长档案库”，也希望它能成为其他开发者遇到相似问题时的参考。</p>
+
+    <h3>联系方式</h3>
+    <p>GitHub: <a href="https://github.com/hiwebsun0914" target="_blank">hiwebsun0914</a><br>Email: <a href="mailto:hiwebsun0914@example.com">hiwebsun0914@example.com</a></p>
+  </main>
+
+  <aside class="sidebar">
+    <div class="sidebar-widget">
+      <h2 class="widget-title">最近文章</h2>
+      <div class="widget-recent-post">
+        <h3 class="widget-recent-post-title">自动图像标注器</h3>
+        <img src="img/annotation.jpg" alt="图像标注工具" class="widget-image">
+      </div>
+      <div class="widget-recent-post">
+        <h3 class="widget-recent-post-title">Markdown 解析器</h3>
+        <img src="img/markdown.jpg" alt="Markdown 渲染预览" class="widget-image">
+      </div>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <p><strong>HiWebSun 技术博客</strong></p>
+  <p>版权所有 © 2025</p>
+</footer>
+</body>
 </html>

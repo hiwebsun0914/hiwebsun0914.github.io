@@ -1,56 +1,73 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HiWebSun0914 的博客</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HiWebSun 的博客</title>
   <style>
-    body {
-      font-family: 'Helvetica', 'Arial', sans-serif;
-      margin: 0;
-      padding: 2rem;
-      background-color: #f4f4f4;
-      color: #333;
-      line-height: 1.6;
-    }
-    header {
-      text-align: center;
-      padding: 2rem 0;
-      background-color: #007acc;
-      color: white;
-    }
-    article {
-      max-width: 700px;
-      margin: auto;
-      background: white;
-      padding: 2rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      border-radius: 8px;
-    }
-    h1 {
-      margin-bottom: 0.5rem;
-    }
-    footer {
-      text-align: center;
-      margin-top: 4rem;
-      color: #666;
-    }
+    body { margin:0; font-family: sans-serif; background:#f8f9fa; color:#333; line-height:1.6; }
+    header, footer { text-align:center; padding:2rem; background:#007acc; color:#fff; }
+    header h1 { margin:0; font-size:2rem; }
+    nav ul { margin:1rem 0; padding:0; list-style:none; display:flex; justify-content:center; gap:1rem; }
+    nav a { color:#fff; text-decoration:none;}
+    .container { max-width:900px; margin:2rem auto; padding:0 1rem; }
+    .posts { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+    .card { background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); overflow:hidden; transition:transform .2s;}
+    .card:hover { transform:translateY(-5px);}
+    .card h2 { margin:0; font-size:1.5rem; padding:1rem;}
+    .card p { margin:0 1rem 1rem;}
+    .dark { background:#121212; color:#eee; }
+    .dark header, .dark footer { background:#222; }
+    .toggle-btn { position:fixed; bottom:1rem; right:1rem; padding:.5rem 1rem; background:#007acc; color:#fff; border:none; border-radius:4px; cursor:pointer;}
   </style>
 </head>
 <body>
   <header>
-    <h1>HiWebSun0914 的个人博客</h1>
-    <p>用代码记录生活，用文字分享思考</p>
+    <h1>HiWebSun 的博客</h1>
+    <nav>
+      <ul>
+        <li><a href="#">首页</a></li>
+        <li><a href="#">归档</a></li>
+        <li><a href="#">关于</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <article>
-    <h2>📌 我的第一篇博客</h2>
-    <p>欢迎来到我的博客！这里将记录我的学习笔记、项目心得、技术分享等内容。</p>
-    <p>你可以点击右上角「Edit」按钮修改此页面。</p>
-  </article>
+  <div class="container">
+    <section class="posts">
+      <div class="card">
+        <h2>如何使用 Hexo 搭建博客</h2>
+        <p>这里介绍从安装 Hexo 到部署的完整流程，适合初学者……</p>
+      </div>
+      <div class="card">
+        <h2>使用 Butterfly 主题美化博客</h2>
+        <p>Butterfly 主题功能丰富、外观现代，这篇文章介绍配置技巧……</p>
+      </div>
+      <div class="card">
+        <h2>绑定自定义域名教程</h2>
+        <p>详细指导如何在 DNS 服务商配置 A 与 CNAME 记录，实现自定义域名访问……</p>
+      </div>
+      <div class="card">
+        <h2>启用暗黑模式切换</h2>
+        <p>通过 JavaScript 和 CSS 简单实现博客夜间模式切换，并保存用户偏好……</p>
+      </div>
+    </section>
+  </div>
 
   <footer>
-    <p>&copy; 2025 HiWebSun0914 | Powered by GitHub Pages</p>
+    <p>&copy; 2025 HiWebSun | Powered by GitHub Pages</p>
   </footer>
+
+  <button class="toggle-btn" onclick="toggleDark()">切换夜间模式</button>
+  <script>
+    const btn = document.querySelector('.toggle-btn');
+    const body = document.body;
+    function toggleDark(){
+      body.classList.toggle('dark');
+      localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+    }
+    const theme = localStorage.getItem('theme');
+    if(theme === 'dark') body.classList.add('dark');
+  </script>
 </body>
 </html>

@@ -16,11 +16,9 @@
 ### 5. 将整体style放置在css文件夹中
 
 ### 6. 项目完成~
-   ```bash
-   conda activate tfnet-slr  # 若尚未激活
-   PYTHONPATH=. python APP/gesture_reg.py --base-url http://127.0.0.1:8010 \
-       --window 96 --stride 24 --resize 256 --sample-every 1 --greedy
-   ```
+
+   
 ## ⚠️ 免责声明
 本仓库仅供研究与学习使用。
+
 

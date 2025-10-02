@@ -1,33 +1,26 @@
-# Static Blog Site - Practice Project
+# hiwebsun0914.github.io
 
-This is a practice project to build a 3-page static blog site using HTML, CSS, and JavaScript. Explore different blog posts and enjoy the content!
+本项目依赖Github建立静态网站，将域名解析到Github对应的服务器上，便可通过外部直接访问网站。
 
-## Demo
+## 🚀 快速上手 (Quick Start)
+### 1.购买域名、进入DNS解析
 
-![image](https://github.com/DevAbdurR/Static-Blog/assets/112758727/c11ae363-0e5b-4917-af2f-3b17f1e2c420)
+### 2. 参照教程进行DNS解析
+   ```bash
+  https://www.yuque.com/g/chenxiaoyu-012lj/hwqaef/vrtexszoclk25aer/collaborator/join?token=xvYPZNpmrJHBBCmR&source=doc_collaborator# 《GitHub Page搭建个人类型的网站》
+   ```
+### 3. 编写html、js代码
 
+### 4. 将图片放置在img文件夹中
 
-See the live project in action on the provided GitHub Pages link.
+### 5. 将整体style放置在css文件夹中
 
-## Pages
+### 6. 项目完成~
+   ```bash
+   conda activate tfnet-slr  # 若尚未激活
+   PYTHONPATH=. python APP/gesture_reg.py --base-url http://127.0.0.1:8010 \
+       --window 96 --stride 24 --resize 256 --sample-every 1 --greedy
+   ```
+## ⚠️ 免责声明
+本仓库仅供研究与学习使用。
 
-1. Home Page: Introduction and featured posts.
-2. About Page: Information about the author or the blog.
-3. Recents Page: Recent Posts.
-
-## Getting Started
-
-To view the project locally, follow these steps:
-
-1. Clone this repository: `git clone https://github.com/DevAbdurR/static-blog.git`
-2. Open the HTML files in your browser: `index.html`, `blog.html`, `about.html`.
-
-## Features
-
-- Three pages with responsive design for different screen sizes.
-- Engaging blog posts with images and content.
-- Navigation between pages for a seamless browsing experience.
-
----
-
-This project was developed as a practice exercise for building a static blog site using HTML, CSS, and JavaScript. Enjoy the blog content and explore the different pages!

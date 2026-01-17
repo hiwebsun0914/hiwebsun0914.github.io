@@ -16,6 +16,7 @@
   function resolveAssetUrl(url) {
     if (!isRelativeUrl(url)) return url;
     const normalized = normalizeRelativeUrl(url);
+    if (!normalized) return url;
     if (normalized.startsWith(assetBasePath)) return normalized;
     return `${assetBasePath}${normalized}`;
   }
@@ -26,13 +27,13 @@
 
     images.forEach((img) => {
       const src = img.getAttribute('src');
-      if (!src) return;
+      if (!src || !isRelativeUrl(src)) return;
       img.setAttribute('src', resolveAssetUrl(src));
     });
 
     links.forEach((link) => {
       const href = link.getAttribute('href');
-      if (!href) return;
+      if (!href || !isRelativeUrl(href)) return;
       link.setAttribute('href', resolveAssetUrl(href));
     });
   }
@@ -92,6 +93,7 @@
         ? window.renderMarkdown(cleanedContent)
         : cleanedContent;
     const cover = post.cover?.trim();
+    const coverUrl = cover ? resolveAssetUrl(cover) : '';
 
     viewEl.innerHTML = `
       <header class="post-view-header">
@@ -101,7 +103,7 @@
         <p class="post-summary">${post.summary || ''}</p>
         ${tags.length ? `<div class="tag-list">${tags.map((tag) => `<span>${tag}</span>`).join('')}</div>` : ''}
       </header>
-      ${cover ? `<div class="media-frame post-cover"><img src="${cover}" alt="${post.title}封面" loading="lazy" /></div>` : ''}
+      ${coverUrl ? `<div class="media-frame post-cover"><img src="${coverUrl}" alt="${post.title}封面" loading="lazy" /></div>` : ''}
       <div class="post-content">${contentHtml}</div>
     `;
     resolveRelativeAssets(viewEl);

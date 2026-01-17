@@ -940,12 +940,14 @@ h1 {
   letter-spacing: 0.1rem;
 }
 
+
 .js .posts-list-handle,
 .js .posts-list {
   transform: translateX(-100%);
   opacity: 0;
   pointer-events: none;
 }
+
 
 .js .posts-layout.is-sidebar-visible .posts-list-handle,
 .js .posts-layout.is-sidebar-visible .posts-list,

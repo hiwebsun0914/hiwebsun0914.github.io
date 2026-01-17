@@ -114,6 +114,7 @@
 
   function setupSidebarHover() {
     if (!layoutEl || !handleEl || !listEl) return;
+
     const edgeSize = 32;
     let isHovering = false;
     let hideTimer = null;
@@ -164,6 +165,7 @@
     document.addEventListener('mouseleave', () => {
       if (!isHovering) hideSidebar(0);
     });
+
   }
 
   async function init() {

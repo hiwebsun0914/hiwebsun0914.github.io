@@ -306,8 +306,8 @@ h1 {
   animation: float 6.5s ease-in-out infinite;
   will-change: transform;
   transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  height: 100%;
   display: flex;
-  align-self: stretch;
 }
 
 .hero-card {
@@ -316,7 +316,7 @@ h1 {
   padding: 1.5rem;
   box-shadow: var(--shadow);
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr auto;
   gap: 1.5rem;
   border: 1px solid var(--border);
   height: 100%;
@@ -870,25 +870,6 @@ h1 {
   position: relative;
 }
 
-.posts-layout::before {
-  content: "目录";
-  position: fixed;
-  top: 45%;
-  left: 0;
-  width: 22px;
-  padding: 0.45rem 0.25rem;
-  background: var(--primary);
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  writing-mode: vertical-rl;
-  text-align: center;
-  letter-spacing: 0.1rem;
-  z-index: 9;
-  cursor: pointer;
-}
-
 .posts-list {
   position: fixed;
   top: 120px;
@@ -903,20 +884,33 @@ h1 {
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
   box-shadow: var(--shadow);
   overflow-y: auto;
-  transform: translateX(-100%);
-  opacity: 0;
+  transform: translateX(calc(-100% + 18px));
+  opacity: 0.2;
   transition: transform 220ms ease, opacity 220ms ease;
   z-index: 8;
-  pointer-events: none;
 }
 
-.posts-layout:hover .posts-list,
-.posts-layout:focus-within .posts-list,
+.posts-list::before {
+  content: "目录";
+  position: absolute;
+  top: 40%;
+  right: -18px;
+  width: 18px;
+  padding: 0.4rem 0.2rem;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  writing-mode: vertical-rl;
+  text-align: center;
+  letter-spacing: 0.1rem;
+}
+
 .posts-list:hover,
 .posts-list:focus-within {
   transform: translateX(0);
   opacity: 1;
-  pointer-events: auto;
 }
 
 .post-list-item {
@@ -1209,7 +1203,7 @@ h1 {
   .posts-list {
     top: 96px;
     bottom: 1.5rem;
-    transform: translateX(-100%);
+    transform: translateX(calc(-100% + 14px));
   }
 
   .admin-layout {

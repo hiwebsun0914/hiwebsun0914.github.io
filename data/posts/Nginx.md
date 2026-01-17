@@ -88,7 +88,7 @@ docker run -d --name mynginx \
     - 日志：`/var/log/nginx/access.log`、`/var/log/nginx/error.log`
 
 <!-- 这是一张图片，ocr 内容为：G Y > ETC > NGINX > CONF.D > 修改时间 权限 大小 A 文件名 A1.CCYYFF.CN.CONF.OFF 2025-08-250:37:06 TWX(644/ROOT) 2.4KB 2025-09-30 08:08 HIWEBSUN.TOP.CONF TWX(644/ROOT) 2.6KB 578.0B 2025-08-1617:20:38 TWX(644/ROOT) SYSUZGXYTJ.TOP.CONF.BA... 2025-09-29 23:55 675.0B SYSUZGXYTJ.TOP.CONF.OFF RWX(644/ROOT) -->
-![](https://cdn.nlark.com/yuque/0/2025/png/50465133/1759752646250-e4483f75-5820-4d84-9607-57ecef3a3233.png)
+![](image/1759752646250-e4483f75-5820-4d84-9607-57ecef3a3233-0fae4d404e.png)
 
 + 主配置（CentOS 系）：
     - `/etc/nginx/nginx.conf`

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>用工程方法拆解个人博客性能｜你的名字</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      const theme = localStorage.getItem('theme');
+      if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <div>
+          <h1>你的名字</h1>
+          <p class="subtitle">工科生 · 数据与系统 · 前端工程师</p>
+        </div>
+      </div>
+      <nav class="site-nav">
+        <a href="../index.html#home">首页</a>
+        <a href="../index.html#posts">文章</a>
+        <a href="../index.html#projects">作品</a>
+        <a href="../index.html#guestbook">留言</a>
+        <a href="../index.html#contact">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container article-layout">
+    <div class="article-hero">
+      <p class="badge">系统设计 · 8 分钟阅读</p>
+      <h1>用工程方法拆解个人博客性能</h1>
+      <div class="article-meta">
+        <span>作者：你的名字</span>
+        <span>更新：2025-04-18</span>
+        <span>关键词：性能、实验设计</span>
+      </div>
+    </div>
+    <article class="article-body">
+      <h2>1. 问题拆解：先定义可量化指标</h2>
+      <p>将“快”拆成首屏渲染时间、交互响应延迟和资源体积三类指标，每一项都可以用工具测量。</p>
+      <h2>2. 设计实验：控制变量、记录版本</h2>
+      <p>每次只调整一个变量，例如图片格式或脚本拆分策略，并记录在实验日志中，形成可复现的优化路径。</p>
+      <h2>3. 结果复盘：用可视化讲清楚变化</h2>
+      <p>通过折线图展示指标变化趋势，避免“凭感觉”判断优化效果。</p>
+      <h2>4. 落地建议</h2>
+      <p>将优化结论整理成 checklist，下一次项目迭代直接复用。</p>
+    </article>
+    <div class="article-nav">
+      <a class="button ghost" href="../index.html#posts">← 返回文章列表</a>
+      <a class="button primary" href="data-dashboard.html">下一篇：传感器日志数据看板 →</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 你的名字 · 个人博客</p>
+      <div class="footer-links">
+        <a href="../index.html#posts">文章</a>
+        <a href="../index.html#guestbook">留言</a>
+        <a href="../index.html#contact">联系</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

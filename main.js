@@ -202,6 +202,126 @@
     for (const target of sectionTargets) observer.observe(target);
   }
 
+  function initPagination() {
+    const posts = Array.from(document.querySelectorAll('[data-posts-grid] .post-card'));
+    const pagination = document.querySelector('[data-pagination]');
+    if (posts.length === 0 || !pagination) return;
+
+    const buttons = Array.from(pagination.querySelectorAll('.page-button'));
+    if (buttons.length === 0) return;
+
+    const pages = new Set(posts.map((post) => Number(post.dataset.page || '1')));
+    const sortedPages = Array.from(pages).sort((a, b) => a - b);
+
+    function setPage(page) {
+      const currentPage = sortedPages.includes(page) ? page : sortedPages[0];
+      for (const post of posts) {
+        const postPage = Number(post.dataset.page || '1');
+        post.hidden = postPage !== currentPage;
+      }
+      for (const button of buttons) {
+        const isActive = Number(button.dataset.page) === currentPage;
+        button.classList.toggle('is-active', isActive);
+        if (isActive) {
+          button.setAttribute('aria-current', 'page');
+        } else {
+          button.removeAttribute('aria-current');
+        }
+      }
+
+      const url = new URL(window.location.href);
+      url.searchParams.set('page', String(currentPage));
+      window.history.replaceState({}, '', url);
+    }
+
+    for (const button of buttons) {
+      const page = Number(button.dataset.page);
+      button.addEventListener('click', () => setPage(page));
+    }
+
+    const initialPage = Number(new URLSearchParams(window.location.search).get('page'));
+    setPage(Number.isFinite(initialPage) ? initialPage : sortedPages[0]);
+  }
+
+  function initGuestbook() {
+    const form = document.getElementById('guestbookForm');
+    const list = document.getElementById('guestbookList');
+    if (!form || !list) return;
+
+    const storageKey = 'guestbookMessages';
+
+    function readMessages() {
+      const raw = safeStorageGet(storageKey);
+      if (!raw) return [];
+      try {
+        const data = JSON.parse(raw);
+        return Array.isArray(data) ? data : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function writeMessages(messages) {
+      safeStorageSet(storageKey, JSON.stringify(messages));
+    }
+
+    function render() {
+      const messages = readMessages();
+      list.innerHTML = '';
+
+      if (messages.length === 0) {
+        const empty = document.createElement('p');
+        empty.className = 'offline-note';
+        empty.textContent = '暂时还没有留言，欢迎留下第一条。';
+        list.append(empty);
+        return;
+      }
+
+      for (const message of messages) {
+        const item = document.createElement('article');
+        item.className = 'guestbook-item';
+
+        const header = document.createElement('header');
+        const name = document.createElement('span');
+        name.textContent = message.name;
+        const time = document.createElement('time');
+        time.dateTime = message.date;
+        time.textContent = message.displayDate;
+        header.append(name, time);
+
+        const body = document.createElement('p');
+        body.textContent = message.message;
+
+        item.append(header, body);
+        list.append(item);
+      }
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const name = String(formData.get('guestName') || '').trim();
+      const message = String(formData.get('guestMessage') || '').trim();
+      if (!name || !message) return;
+
+      const now = new Date();
+      const entry = {
+        name,
+        message,
+        date: now.toISOString(),
+        displayDate: now.toLocaleString('zh-CN', { hour12: false }),
+      };
+
+      const messages = readMessages();
+      messages.unshift(entry);
+      writeMessages(messages.slice(0, 20));
+      form.reset();
+      render();
+    });
+
+    render();
+  }
+
   async function initGuestName() {
     const nameElement = document.getElementById('name');
     if (!nameElement) return;
@@ -235,5 +355,7 @@
   initDragScroll();
   initTilt();
   initScrollSpy();
+  initPagination();
+  initGuestbook();
   initGuestName();
 })();

@@ -2,6 +2,69 @@
   const listEl = document.querySelector('[data-posts-list]');
   const viewEl = document.querySelector('[data-post-view]');
   if (!listEl || !viewEl || !window.ContentLoader) return;
+  const assetBasePath = 'data/posts/';
+  const markdownImagePattern = /!\[([^\]]*)\]\(\s*(<[^>]+>|[^)\s]+)\s*(?:(?:"([^"]*)")|(?:'([^']*)'))?\s*\)/g;
+  const markdownLinkPattern = /\[([^\]]+)\]\(\s*(<[^>]+>|[^)\s]+)\s*(?:(?:"([^"]*)")|(?:'([^']*)'))?\s*\)/g;
+
+  function isRelativeUrl(url) {
+    if (!url) return false;
+    return !/^(?:[a-z][a-z0-9+.-]*:|\/\/|#|\/)/i.test(url);
+  }
+
+  function normalizeRelativeUrl(url) {
+    return url.replace(/^\.\//, '').replace(/^\//, '');
+  }
+
+  function resolveAssetUrl(url) {
+    if (!url) return url;
+    const trimmed = url.trim();
+    if (!isRelativeUrl(trimmed)) return trimmed;
+    const normalized = normalizeRelativeUrl(trimmed);
+    if (normalized.startsWith(assetBasePath)) return normalized;
+    return `${assetBasePath}${normalized}`;
+  }
+
+  function resolveMarkdownAssets(source) {
+    if (!source) return source;
+    let updated = source.replace(markdownImagePattern, (match, alt, rawUrl, titleDouble, titleSingle) => {
+      const url = rawUrl.startsWith('<') && rawUrl.endsWith('>') ? rawUrl.slice(1, -1).trim() : rawUrl.trim();
+      const resolved = resolveAssetUrl(url);
+      if (resolved === url) return match;
+      const title = titleDouble || titleSingle;
+      const wrappedUrl = rawUrl.startsWith('<') && rawUrl.endsWith('>') ? `<${resolved}>` : resolved;
+      const titlePart = title ? ` "${title}"` : '';
+      return `![${alt}](${wrappedUrl}${titlePart})`;
+    });
+
+    updated = updated.replace(markdownLinkPattern, (match, label, rawUrl, titleDouble, titleSingle) => {
+      const url = rawUrl.startsWith('<') && rawUrl.endsWith('>') ? rawUrl.slice(1, -1).trim() : rawUrl.trim();
+      const resolved = resolveAssetUrl(url);
+      if (resolved === url) return match;
+      const title = titleDouble || titleSingle;
+      const wrappedUrl = rawUrl.startsWith('<') && rawUrl.endsWith('>') ? `<${resolved}>` : resolved;
+      const titlePart = title ? ` "${title}"` : '';
+      return `[${label}](${wrappedUrl}${titlePart})`;
+    });
+
+    return updated;
+  }
+
+  function resolveRelativeAssets(container) {
+    const images = Array.from(container.querySelectorAll('img[src]'));
+    const links = Array.from(container.querySelectorAll('a[href]'));
+
+    images.forEach((img) => {
+      const src = img.getAttribute('src');
+      const resolved = resolveAssetUrl(src);
+      if (resolved && resolved !== src) img.setAttribute('src', resolved);
+    });
+
+    links.forEach((link) => {
+      const href = link.getAttribute('href');
+      const resolved = resolveAssetUrl(href);
+      if (resolved && resolved !== href) link.setAttribute('href', resolved);
+    });
+  }
 
   async function loadPosts() {
     return window.ContentLoader.loadPosts();
@@ -52,12 +115,13 @@
     const tags = Array.isArray(post.tags) ? post.tags : [];
     const rawContent = post.content || '';
     const cleanedContent = rawContent.replace(/<!--[\s\S]*?-->/g, '');
+    const resolvedContent = resolveMarkdownAssets(cleanedContent);
     const contentHtml = window.marked
-      ? window.marked.parse(cleanedContent)
+      ? window.marked.parse(resolvedContent)
       : window.renderMarkdown
-        ? window.renderMarkdown(cleanedContent)
-        : cleanedContent;
-    const cover = post.cover?.trim();
+        ? window.renderMarkdown(resolvedContent)
+        : resolvedContent;
+    const cover = resolveAssetUrl(post.cover?.trim());
 
     viewEl.innerHTML = `
       <header class="post-view-header">
@@ -70,6 +134,7 @@
       ${cover ? `<div class="media-frame post-cover"><img src="${cover}" alt="${post.title}封面" loading="lazy" /></div>` : ''}
       <div class="post-content">${contentHtml}</div>
     `;
+    resolveRelativeAssets(viewEl);
   }
 
   function getInitialId() {

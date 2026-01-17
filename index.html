@@ -3,29 +3,217 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>迎新晚会节目单</title>
-  <style>
-    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; padding: 2rem; }
-    .card { max-width: 720px; margin: 0 auto; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
-    .name { font-size: 1.8rem; font-weight: 700; margin: .5rem 0 1rem; }
-    .muted { color:#666; }
-  </style>
+  <title>个人博客｜你的名字</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <div class="card">
-    <div class="muted">欢迎来到智能工程学院迎新晚会</div>
-    <div class="name" id="name">加载中…</div>
-    <h2>今晚节目单</h2>
-    <ol id="programs">
-      <li>开场致辞</li>
-      <li>合唱《青春》</li>
-      <li>舞蹈《追光者》</li>
-      <li>互动抽奖</li>
-      <li>压轴歌曲</li>
-    </ol>
-    <p id="fallback" class="muted" style="display:none">未识别到有效 token，请检查链接。</p>
-  </div>
-  <script src="main.js"></script>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <div>
+          <h1>你的名字</h1>
+          <p class="subtitle">内容创作者 · 设计师 · 前端工程师</p>
+        </div>
+      </div>
+      <nav class="site-nav">
+        <a class="current-page" href="#home">首页</a>
+        <a href="#posts">文章</a>
+        <a href="#projects">作品</a>
+        <a href="#photos">相册</a>
+        <a href="#contact">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="home">
+    <section class="hero">
+      <div class="hero-content">
+        <p class="badge">个人博客 · 2025</p>
+        <h2>记录灵感、项目与生活的线上空间</h2>
+        <p class="lead">
+          这里分享前端开发、产品思考、创作笔记与生活灵感。欢迎通过文章了解我的工作方式，或在作品集中查看最新项目。
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#posts">查看最新文章</a>
+          <a class="button ghost" href="#contact">合作联系</a>
+        </div>
+        <div class="hero-meta">
+          <div>
+            <strong>12+</strong>
+            <span>精选文章</span>
+          </div>
+          <div>
+            <strong>6</strong>
+            <span>正在进行的项目</span>
+          </div>
+          <div>
+            <strong>2025</strong>
+            <span>持续更新</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="photo-placeholder large">
+          <span>这里放置一张个人头像或个人品牌照片</span>
+          <small>建议：高清半身照 / 个人品牌视觉</small>
+        </div>
+        <div class="card-info">
+          <h3>Hi, 我是你的名字</h3>
+          <p>专注于打造具有温度的数字体验，也热衷于记录思考与生活碎片。</p>
+          <div class="tag-list">
+            <span>UI/UX</span>
+            <span>Web</span>
+            <span>写作</span>
+            <span>摄影</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="posts">
+      <div class="section-title">
+        <h2>精选文章</h2>
+        <p>从流行的个人博客布局中汲取灵感，使用卡片式内容 + 阅读时长提示。</p>
+      </div>
+      <div class="grid posts-grid">
+        <article class="post-card">
+          <div class="photo-placeholder">
+            <span>文章封面位</span>
+            <small>建议：项目截图 / 主题配图</small>
+          </div>
+          <div class="post-body">
+            <p class="post-meta">设计 · 8 分钟阅读</p>
+            <h3>打造更有故事感的产品首页</h3>
+            <p>用叙事结构梳理产品价值，将复杂功能转化为清晰的用户旅程。</p>
+            <a class="link" href="#">阅读全文</a>
+          </div>
+        </article>
+        <article class="post-card">
+          <div class="photo-placeholder">
+            <span>文章封面位</span>
+            <small>建议：工作场景 / 创作过程</small>
+          </div>
+          <div class="post-body">
+            <p class="post-meta">开发 · 6 分钟阅读</p>
+            <h3>我在项目中使用的前端组件体系</h3>
+            <p>从开源库中提炼设计规范，建立可复用的视觉与交互语言。</p>
+            <a class="link" href="#">阅读全文</a>
+          </div>
+        </article>
+        <article class="post-card">
+          <div class="photo-placeholder">
+            <span>文章封面位</span>
+            <small>建议：生活旅行 / 灵感照片</small>
+          </div>
+          <div class="post-body">
+            <p class="post-meta">生活 · 4 分钟阅读</p>
+            <h3>关于灵感收集的三种方式</h3>
+            <p>从日常观察到系统化归档，持续积累属于你的灵感素材库。</p>
+            <a class="link" href="#">阅读全文</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="section-title">
+        <h2>作品与项目</h2>
+        <p>展示最近完成或正在进行的项目，搭配清晰的视觉与成果说明。</p>
+      </div>
+      <div class="grid project-grid">
+        <div class="project-card">
+          <div class="photo-placeholder">
+            <span>项目展示位</span>
+            <small>建议：产品界面 / 交互原型</small>
+          </div>
+          <div class="project-body">
+            <h3>旅居地图应用</h3>
+            <p>为远程工作者打造的目的地筛选工具，强调体验路线与社区。</p>
+            <div class="project-tags">
+              <span>Product</span>
+              <span>UI</span>
+              <span>Brand</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="photo-placeholder">
+            <span>项目展示位</span>
+            <small>建议：数据仪表盘 / 分析图表</small>
+          </div>
+          <div class="project-body">
+            <h3>创作者数据看板</h3>
+            <p>通过仪表盘帮助创作者了解增长趋势，并提供内容策略建议。</p>
+            <div class="project-tags">
+              <span>Data</span>
+              <span>Dashboard</span>
+              <span>Design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="photos">
+      <div class="section-title">
+        <h2>照片墙</h2>
+        <p>可放置旅行、工作或生活瞬间，打造更具个人气质的视觉模块。</p>
+      </div>
+      <div class="grid photo-grid">
+        <div class="photo-placeholder">
+          <span>照片 01</span>
+          <small>建议：旅行风景 / 城市街景</small>
+        </div>
+        <div class="photo-placeholder">
+          <span>照片 02</span>
+          <small>建议：工作台 / 桌面细节</small>
+        </div>
+        <div class="photo-placeholder">
+          <span>照片 03</span>
+          <small>建议：生活记录 / 兴趣爱好</small>
+        </div>
+        <div class="photo-placeholder">
+          <span>照片 04</span>
+          <small>建议：个人作品 / 手稿</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="cta">
+        <div>
+          <h2>保持联系</h2>
+          <p>如果你想合作、交流想法或获取简历，欢迎通过以下方式联系我。</p>
+          <ul class="contact-list">
+            <li>📮 Email：hello@example.com</li>
+            <li>💬 微信：yourwechat</li>
+            <li>🔗 GitHub：github.com/yourname</li>
+          </ul>
+        </div>
+        <div class="photo-placeholder">
+          <span>联系页照片位</span>
+          <small>建议：工作肖像 / 活动现场</small>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 你的名字 · 个人博客</p>
+      <div class="footer-links">
+        <a href="#">知乎</a>
+        <a href="#">微博</a>
+        <a href="#">小红书</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
-

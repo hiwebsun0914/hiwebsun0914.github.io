@@ -2,6 +2,28 @@
   const listEl = document.querySelector('[data-posts-list]');
   const viewEl = document.querySelector('[data-post-view]');
   if (!listEl || !viewEl || !window.ContentLoader) return;
+  const postAssetsBase = 'data/posts/';
+
+  function resolveRelativeUrl(url, basePath) {
+    if (!url) return url;
+    const trimmed = url.trim();
+    if (!trimmed) return trimmed;
+    if (trimmed.startsWith(basePath)) return trimmed;
+    if (/^(?:[a-z][a-z0-9+.-]*:|#|\/)/i.test(trimmed)) return trimmed;
+    const normalized = trimmed.replace(/^\.?\//, '');
+    return `${basePath}${normalized}`;
+  }
+
+  function updateRelativeImages(container, basePath) {
+    const images = container.querySelectorAll('img');
+    images.forEach((image) => {
+      const rawSrc = image.getAttribute('src');
+      const resolved = resolveRelativeUrl(rawSrc, basePath);
+      if (resolved && resolved !== rawSrc) {
+        image.setAttribute('src', resolved);
+      }
+    });
+  }
 
   async function loadPosts() {
     return window.ContentLoader.loadPosts();
@@ -51,11 +73,11 @@
 
     const tags = Array.isArray(post.tags) ? post.tags : [];
     const contentHtml = window.marked
-      ? window.marked.parse(post.content || '')
+      ? window.marked.parse(post.content || '', { baseUrl: postAssetsBase })
       : window.renderMarkdown
-        ? window.renderMarkdown(post.content || '')
+        ? window.renderMarkdown(post.content || '', postAssetsBase)
         : post.content || '';
-    const cover = post.cover?.trim();
+    const cover = resolveRelativeUrl(post.cover?.trim(), postAssetsBase);
 
     viewEl.innerHTML = `
       <header class="post-view-header">
@@ -68,6 +90,11 @@
       ${cover ? `<div class="media-frame post-cover"><img src="${cover}" alt="${post.title}封面" loading="lazy" /></div>` : ''}
       <div class="post-content">${contentHtml}</div>
     `;
+
+    const contentEl = viewEl.querySelector('.post-content');
+    if (contentEl) {
+      updateRelativeImages(contentEl, postAssetsBase);
+    }
   }
 
   function getInitialId() {

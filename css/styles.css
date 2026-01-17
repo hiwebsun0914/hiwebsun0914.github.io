@@ -558,6 +558,32 @@ h1 {
   background: #fafbff;
 }
 
+.media-frame {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+}
+
+.media-frame.large {
+  min-height: 260px;
+}
+
+.media-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.post-cover {
+  margin-top: 1.5rem;
+}
+
 .drag-hint {
   margin-top: 0.9rem;
   color: var(--muted);

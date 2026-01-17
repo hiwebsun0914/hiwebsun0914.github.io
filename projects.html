@@ -57,40 +57,9 @@
     <section class="section" id="projects">
       <div class="section-title" data-reveal>
         <h2>作品与项目</h2>
-        <p>集中展示正在推进或已完成的项目，便于独立维护。</p>
+        <p>自动读取项目数据文件，数量会随文档更新。</p>
       </div>
-      <div class="grid project-grid">
-        <div class="project-card" data-reveal>
-          <div class="photo-placeholder">
-            <span>项目展示位</span>
-            <small>建议：产品界面 / 交互原型</small>
-          </div>
-          <div class="project-body">
-            <h3>旅居地图应用</h3>
-            <p>为远程工作者打造的目的地筛选工具，强调体验路线与社区。</p>
-            <div class="project-tags">
-              <span>Product</span>
-              <span>UI</span>
-              <span>Brand</span>
-            </div>
-          </div>
-        </div>
-        <div class="project-card" data-reveal>
-          <div class="photo-placeholder">
-            <span>项目展示位</span>
-            <small>建议：数据仪表盘 / 分析图表</small>
-          </div>
-          <div class="project-body">
-            <h3>创作者数据看板</h3>
-            <p>通过仪表盘帮助创作者了解增长趋势，并提供内容策略建议。</p>
-            <div class="project-tags">
-              <span>Data</span>
-              <span>Dashboard</span>
-              <span>Design</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="grid project-grid" data-projects-grid data-reveal></div>
     </section>
   </main>
 
@@ -105,6 +74,8 @@
     </div>
   </footer>
 
+  <script src="content-loader.js" defer></script>
   <script src="main.js" defer></script>
+  <script src="projects.js" defer></script>
 </body>
 </html>

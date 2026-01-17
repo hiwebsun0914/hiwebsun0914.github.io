@@ -163,30 +163,37 @@
     }
   }
 
+  async function initDynamicCounts() {
+    const postTargets = Array.from(document.querySelectorAll('[data-count="posts"]'));
+    const projectTargets = Array.from(document.querySelectorAll('[data-count="projects"]'));
+    if (postTargets.length === 0 && projectTargets.length === 0) return;
+    if (!window.ContentLoader) return;
+
+    const [posts, projects] = await Promise.all([
+      window.ContentLoader.loadPosts(),
+      window.ContentLoader.loadProjects(),
+    ]);
+
+    if (postTargets.length) {
+      const count = posts.length;
+      postTargets.forEach((target) => {
+        target.textContent = String(count);
+      });
+    }
+
+    if (projectTargets.length) {
+      const count = projects.length;
+      projectTargets.forEach((target) => {
+        target.textContent = String(count);
+      });
+    }
+  }
+
   async function initLatestPosts() {
     const latestContainer = document.querySelector('[data-latest-posts]');
     if (!latestContainer) return;
-
-    const storageKey = 'postsData';
-    const raw = safeStorageGet(storageKey);
-    let posts = [];
-
-    if (raw) {
-      try {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) posts = parsed;
-      } catch {
-        posts = [];
-      }
-    }
-
-    if (posts.length === 0) {
-      try {
-        posts = await fetch('data/posts.json', { cache: 'no-store' }).then((response) => response.json());
-      } catch {
-        posts = [];
-      }
-    }
+    if (!window.ContentLoader) return;
+    const posts = await window.ContentLoader.loadPosts();
 
     latestContainer.innerHTML = '';
 
@@ -203,15 +210,17 @@
     for (const post of sorted) {
       const card = document.createElement('article');
       card.className = 'post-card';
+      card.dataset.reveal = '';
+      card.classList.add('is-visible');
+      const cover = post.cover || 'img/tech-blog.jpg';
       card.innerHTML = `
-        <div class="photo-placeholder">
-          <span>文章封面位</span>
-          <small>${post.cover || '建议：项目截图 / 主题配图'}</small>
+        <div class="media-frame">
+          <img src="${cover}" alt="${post.title}封面" loading="lazy" />
         </div>
         <div class="post-body">
           <p class="post-meta">${post.category || '文章'} · ${post.readTime || ''}</p>
           <h3>${post.title}</h3>
-          <p>${post.summary}</p>
+          <p>${post.summary || ''}</p>
           <a class="link" href="posts.html?id=${post.id}">阅读全文</a>
         </div>
       `;
@@ -223,5 +232,6 @@
   initReveal();
   initDragScroll();
   initTilt();
+  initDynamicCounts();
   initLatestPosts();
 })();

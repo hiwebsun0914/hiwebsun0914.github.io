@@ -1,34 +1,10 @@
 (() => {
   const listEl = document.querySelector('[data-posts-list]');
   const viewEl = document.querySelector('[data-post-view]');
-  if (!listEl || !viewEl) return;
-
-  const storageKey = 'postsData';
-
-  function safeStorageGet(key) {
-    try {
-      return window.localStorage.getItem(key);
-    } catch {
-      return null;
-    }
-  }
+  if (!listEl || !viewEl || !window.ContentLoader) return;
 
   async function loadPosts() {
-    const raw = safeStorageGet(storageKey);
-    if (raw) {
-      try {
-        const data = JSON.parse(raw);
-        if (Array.isArray(data)) return data;
-      } catch {
-        return [];
-      }
-    }
-
-    try {
-      return await fetch('data/posts.json', { cache: 'no-store' }).then((response) => response.json());
-    } catch {
-      return [];
-    }
+    return window.ContentLoader.loadPosts();
   }
 
   function renderList(posts, activeId) {
@@ -75,6 +51,7 @@
 
     const tags = Array.isArray(post.tags) ? post.tags : [];
     const contentHtml = window.marked ? window.marked.parse(post.content || '') : post.content || '';
+    const cover = post.cover?.trim();
 
     viewEl.innerHTML = `
       <header class="post-view-header">
@@ -84,6 +61,7 @@
         <p class="post-summary">${post.summary || ''}</p>
         ${tags.length ? `<div class="tag-list">${tags.map((tag) => `<span>${tag}</span>`).join('')}</div>` : ''}
       </header>
+      ${cover ? `<div class="media-frame post-cover"><img src="${cover}" alt="${post.title}封面" loading="lazy" /></div>` : ''}
       <div class="post-content">${contentHtml}</div>
     `;
   }

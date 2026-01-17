@@ -1,6 +1,8 @@
 (() => {
   const listEl = document.querySelector('[data-posts-list]');
   const viewEl = document.querySelector('[data-post-view]');
+  const layoutEl = document.querySelector('.posts-layout');
+  const handleEl = document.querySelector('.posts-list-handle');
   if (!listEl || !viewEl || !window.ContentLoader) return;
   const postAssetsBase = 'data/posts/';
 
@@ -110,6 +112,47 @@
     return params.get('id');
   }
 
+  function setupSidebarHover() {
+    if (!layoutEl || !handleEl || !listEl) return;
+    let isHovering = false;
+    let hideTimer = null;
+
+    const showSidebar = () => {
+      if (hideTimer) {
+        window.clearTimeout(hideTimer);
+        hideTimer = null;
+      }
+      layoutEl.classList.add('is-sidebar-visible');
+    };
+
+    const hideSidebar = (delay = 180) => {
+      if (hideTimer) window.clearTimeout(hideTimer);
+      hideTimer = window.setTimeout(() => {
+        if (!isHovering) layoutEl.classList.remove('is-sidebar-visible');
+      }, delay);
+    };
+
+    const enterSidebar = () => {
+      isHovering = true;
+      showSidebar();
+    };
+
+    const leaveSidebar = () => {
+      isHovering = false;
+      hideSidebar();
+    };
+
+    [handleEl, listEl].forEach((element) => {
+      element.addEventListener('pointerenter', enterSidebar);
+      element.addEventListener('pointerleave', leaveSidebar);
+    });
+
+    layoutEl.addEventListener('focusin', showSidebar);
+    layoutEl.addEventListener('focusout', (event) => {
+      if (!layoutEl.contains(event.relatedTarget)) hideSidebar(0);
+    });
+  }
+
   async function init() {
     const posts = await loadPosts();
     const sorted = posts.slice().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -117,6 +160,7 @@
     const initialPost = initialId ? sorted.find((post) => post.id === initialId) : sorted[0];
 
     renderList(sorted, initialPost?.id);
+    setupSidebarHover();
 
     if (initialPost) {
       renderView(initialPost);

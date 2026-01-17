@@ -889,6 +889,7 @@ h1 {
   border: none;
   cursor: pointer;
   z-index: 9;
+  transition: transform 220ms ease, opacity 220ms ease;
 }
 
 .posts-list-handle:focus-visible {
@@ -939,10 +940,14 @@ h1 {
   letter-spacing: 0.1rem;
 }
 
-.posts-list-handle:hover + .posts-list,
-.posts-list-handle:focus + .posts-list,
-.posts-list:hover,
-.posts-list:focus-within {
+.js .posts-list {
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.js .posts-layout.is-sidebar-visible .posts-list,
+.js .posts-layout:focus-within .posts-list {
   transform: translateX(0);
   opacity: 1;
   pointer-events: auto;

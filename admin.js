@@ -11,8 +11,29 @@
   if (!listEl || !form || !previewEl) return;
 
   const storageKey = 'postsData';
+  const postAssetsBase = 'data/posts/';
   let posts = [];
   let activeId = null;
+
+  function resolveRelativeUrl(url, basePath) {
+    if (!url) return url;
+    const trimmed = url.trim();
+    if (!trimmed) return trimmed;
+    if (/^(?:[a-z][a-z0-9+.-]*:|#|\/)/i.test(trimmed)) return trimmed;
+    const normalized = trimmed.replace(/^\.?\//, '');
+    return `${basePath}${normalized}`;
+  }
+
+  function updateRelativeImages(container, basePath) {
+    const images = container.querySelectorAll('img');
+    images.forEach((image) => {
+      const rawSrc = image.getAttribute('src');
+      const resolved = resolveRelativeUrl(rawSrc, basePath);
+      if (resolved && resolved !== rawSrc) {
+        image.setAttribute('src', resolved);
+      }
+    });
+  }
 
   function safeStorageGet(key) {
     try {
@@ -78,6 +99,7 @@
         ? window.renderMarkdown(content || '')
         : content || '';
     previewEl.innerHTML = html || '<p class="muted">暂无预览内容。</p>';
+    updateRelativeImages(previewEl, postAssetsBase);
   }
 
   function setActive(id) {

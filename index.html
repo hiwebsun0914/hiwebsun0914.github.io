@@ -10,6 +10,13 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
     rel="stylesheet"
   />
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      const theme = localStorage.getItem('theme');
+      if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+    } catch (e) {}
+  </script>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -29,12 +36,26 @@
         <a href="#photos">相册</a>
         <a href="#contact">联系</a>
       </nav>
+      <button class="theme-toggle" type="button" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M12 18a6 6 0 1 1 0-12a6 6 0 0 1 0 12Zm0-14.5a1 1 0 0 1 1 1V6a1 1 0 1 1-2 0V4.5a1 1 0 0 1 1-1Zm0 14.5a1 1 0 0 1 1 1V20a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1Zm8.5-7a1 1 0 0 1 1 1a1 1 0 0 1-1 1H19a1 1 0 1 1 0-2h1.5ZM5 12a1 1 0 1 1 0 2H3.5a1 1 0 1 1 0-2H5Zm12.728-6.728a1 1 0 0 1 1.414 0a1 1 0 0 1 0 1.414l-1.06 1.06a1 1 0 1 1-1.415-1.414l1.06-1.06ZM6.747 17.313a1 1 0 0 1 1.414 0a1 1 0 0 1 0 1.414l-1.06 1.06a1 1 0 0 1-1.414-1.414l1.06-1.06Zm12.395 1.06a1 1 0 0 1-1.414 1.414l-1.06-1.06a1 1 0 1 1 1.414-1.414l1.06 1.06ZM8.162 6.747a1 1 0 1 1-1.414 1.414l-1.06-1.06A1 1 0 1 1 7.1 5.687l1.06 1.06Z"
+          />
+        </svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M21 12.8A8.5 8.5 0 0 1 11.2 3a7 7 0 1 0 9.8 9.8Z"
+          />
+        </svg>
+      </button>
     </div>
   </header>
 
-  <main class="container" id="home">
-    <section class="hero">
-      <div class="hero-content">
+  <main class="container">
+    <section class="hero" id="home">
+      <div class="hero-content" data-reveal>
         <p class="badge">个人博客 · 2025</p>
         <h2>记录灵感、项目与生活的线上空间</h2>
         <p class="lead">
@@ -59,31 +80,33 @@
           </div>
         </div>
       </div>
-      <div class="hero-card">
-        <div class="photo-placeholder large">
-          <span>这里放置一张个人头像或个人品牌照片</span>
-          <small>建议：高清半身照 / 个人品牌视觉</small>
-        </div>
-        <div class="card-info">
-          <h3>Hi, 我是你的名字</h3>
-          <p>专注于打造具有温度的数字体验，也热衷于记录思考与生活碎片。</p>
-          <div class="tag-list">
-            <span>UI/UX</span>
-            <span>Web</span>
-            <span>写作</span>
-            <span>摄影</span>
+      <div class="hero-card-wrap" data-reveal>
+        <div class="hero-card" data-tilt>
+          <div class="photo-placeholder large">
+            <span>这里放置一张个人头像或个人品牌照片</span>
+            <small>建议：高清半身照 / 个人品牌视觉</small>
+          </div>
+          <div class="card-info">
+            <h3>Hi, 我是你的名字</h3>
+            <p>专注于打造具有温度的数字体验，也热衷于记录思考与生活碎片。</p>
+            <div class="tag-list">
+              <span>UI/UX</span>
+              <span>Web</span>
+              <span>写作</span>
+              <span>摄影</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <section class="section" id="posts">
-      <div class="section-title">
+      <div class="section-title" data-reveal>
         <h2>精选文章</h2>
         <p>从流行的个人博客布局中汲取灵感，使用卡片式内容 + 阅读时长提示。</p>
       </div>
       <div class="grid posts-grid">
-        <article class="post-card">
+        <article class="post-card" data-reveal>
           <div class="photo-placeholder">
             <span>文章封面位</span>
             <small>建议：项目截图 / 主题配图</small>
@@ -95,7 +118,7 @@
             <a class="link" href="#">阅读全文</a>
           </div>
         </article>
-        <article class="post-card">
+        <article class="post-card" data-reveal>
           <div class="photo-placeholder">
             <span>文章封面位</span>
             <small>建议：工作场景 / 创作过程</small>
@@ -107,7 +130,7 @@
             <a class="link" href="#">阅读全文</a>
           </div>
         </article>
-        <article class="post-card">
+        <article class="post-card" data-reveal>
           <div class="photo-placeholder">
             <span>文章封面位</span>
             <small>建议：生活旅行 / 灵感照片</small>
@@ -123,12 +146,12 @@
     </section>
 
     <section class="section" id="projects">
-      <div class="section-title">
+      <div class="section-title" data-reveal>
         <h2>作品与项目</h2>
         <p>展示最近完成或正在进行的项目，搭配清晰的视觉与成果说明。</p>
       </div>
       <div class="grid project-grid">
-        <div class="project-card">
+        <div class="project-card" data-reveal>
           <div class="photo-placeholder">
             <span>项目展示位</span>
             <small>建议：产品界面 / 交互原型</small>
@@ -143,7 +166,7 @@
             </div>
           </div>
         </div>
-        <div class="project-card">
+        <div class="project-card" data-reveal>
           <div class="photo-placeholder">
             <span>项目展示位</span>
             <small>建议：数据仪表盘 / 分析图表</small>
@@ -162,11 +185,11 @@
     </section>
 
     <section class="section" id="photos">
-      <div class="section-title">
+      <div class="section-title" data-reveal>
         <h2>照片墙</h2>
         <p>可放置旅行、工作或生活瞬间，打造更具个人气质的视觉模块。</p>
       </div>
-      <div class="grid photo-grid">
+      <div class="grid photo-grid" data-drag-scroll data-reveal>
         <div class="photo-placeholder">
           <span>照片 01</span>
           <small>建议：旅行风景 / 城市街景</small>
@@ -184,10 +207,11 @@
           <small>建议：个人作品 / 手稿</small>
         </div>
       </div>
+      <p class="drag-hint">提示：可左右拖动查看更多</p>
     </section>
 
     <section class="section" id="contact">
-      <div class="cta">
+      <div class="cta" data-reveal>
         <div>
           <h2>保持联系</h2>
           <p>如果你想合作、交流想法或获取简历，欢迎通过以下方式联系我。</p>
@@ -215,5 +239,7 @@
       </div>
     </div>
   </footer>
+
+  <script src="main.js" defer></script>
 </body>
 </html>

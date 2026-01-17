@@ -15,11 +15,15 @@
     return trimmed.split('|').map((cell) => cell.trim());
   }
 
+  function stripHtmlComments(value) {
+    return value.replace(/<!--([\s\S]*?)-->/g, '');
+  }
+
   function parseInline(text) {
     if (!text) return '';
     const codeSpans = [];
 
-    let working = text.replace(/`([^`]+)`/g, (match, code) => {
+    let working = stripHtmlComments(text).replace(/`([^`]+)`/g, (match, code) => {
       const token = `__CODESPAN_${codeSpans.length}__`;
       codeSpans.push(`<code>${escapeHtml(code)}</code>`);
       return token;
@@ -27,10 +31,17 @@
 
     working = escapeHtml(working);
 
-    working = working.replace(/!\[([^\]]*)\]\(([^\s)]+)\)/g, (_match, alt, url) => {
-      const safeAlt = escapeHtml(alt);
-      return `<img src="${url}" alt="${safeAlt}" loading="lazy" />`;
-    });
+    working = working
+      .replace(/!\[([^\]]*)\]\(\s*<([^>]+)>\s*(?:\"([^\"]*)\")?\s*\)/g, (_match, alt, url, title) => {
+        const safeAlt = escapeHtml(alt);
+        const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
+        return `<img src="${url}" alt="${safeAlt}" loading="lazy"${titleAttr} />`;
+      })
+      .replace(/!\[([^\]]*)\]\(\s*([^\s)]+)(?:\s+\"([^\"]*)\")?\s*\)/g, (_match, alt, url, title) => {
+        const safeAlt = escapeHtml(alt);
+        const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
+        return `<img src="${url}" alt="${safeAlt}" loading="lazy"${titleAttr} />`;
+      });
 
     working = working.replace(/\[([^\]]+)\]\(([^\s)]+)\)/g, (_match, label, url) => {
       return `<a href="${url}" target="_blank" rel="noopener">${label}</a>`;
@@ -75,6 +86,11 @@
       }
 
       if (!line.trim()) {
+        index += 1;
+        continue;
+      }
+
+      if (/^<!--([\s\S]*?)-->$/.test(line.trim())) {
         index += 1;
         continue;
       }

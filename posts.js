@@ -50,11 +50,13 @@
     if (!post) return;
 
     const tags = Array.isArray(post.tags) ? post.tags : [];
+    const rawContent = post.content || '';
+    const cleanedContent = rawContent.replace(/<!--[\s\S]*?-->/g, '');
     const contentHtml = window.marked
-      ? window.marked.parse(post.content || '')
+      ? window.marked.parse(cleanedContent)
       : window.renderMarkdown
-        ? window.renderMarkdown(post.content || '')
-        : post.content || '';
+        ? window.renderMarkdown(cleanedContent)
+        : cleanedContent;
     const cover = post.cover?.trim();
 
     viewEl.innerHTML = `

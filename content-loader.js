@@ -40,6 +40,14 @@
     return filename.replace(/\.md$/i, '').toLowerCase();
   }
 
+  function buildPostUrl(file) {
+    if (!file || typeof file !== 'string') return null;
+    const trimmed = file.trim().replace(/^\//, '');
+    if (!trimmed) return null;
+    const encoded = encodeURIComponent(trimmed).replace(/%2F/g, '/');
+    return `data/posts/${encoded}`;
+  }
+
   async function loadPostIndex() {
     try {
       const response = await fetch(postIndexPath, { cache: 'no-store' });
@@ -57,8 +65,10 @@
 
     const entries = await Promise.all(
       index.map(async (file) => {
+        const url = buildPostUrl(file);
+        if (!url) return null;
         try {
-          const response = await fetch(`data/posts/${file}`, { cache: 'no-store' });
+          const response = await fetch(url, { cache: 'no-store' });
           if (!response.ok) return null;
           const raw = await response.text();
           const parsed = parseFrontMatter(raw);

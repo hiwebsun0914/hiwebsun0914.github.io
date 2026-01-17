@@ -581,6 +581,8 @@ h1 {
 
 .media-frame.large {
   min-height: 100px;
+  max-height: 240px;
+  aspect-ratio: 4 / 3;
 }
 
 .media-frame img {

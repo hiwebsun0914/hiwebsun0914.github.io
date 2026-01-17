@@ -17,10 +17,15 @@
   function resolveAssetUrl(url) {
     if (!isRelativeUrl(url)) return url;
     const normalized = normalizeRelativeUrl(url);
-    if (normalized.startsWith(assetBasePath)) {
-      return new URL(normalized, window.location.href).toString();
+    if (!normalized) return url;
+    try {
+      if (normalized.startsWith(assetBasePath)) {
+        return new URL(normalized, window.location.href).toString();
+      }
+      return new URL(normalized, assetBaseUrl).toString();
+    } catch {
+      return url;
     }
-    return new URL(normalized, assetBaseUrl).toString();
   }
 
   function resolveRelativeAssets(container) {

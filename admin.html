@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>内容管理｜你的名字</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      const theme = localStorage.getItem('theme');
+      if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="admin">
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <div>
+          <h1>你的名字</h1>
+          <p class="subtitle">工科生 · 数据与系统 · 前端工程师</p>
+        </div>
+      </div>
+      <nav class="site-nav">
+        <a href="index.html">首页</a>
+        <a href="posts.html">文章</a>
+        <a href="projects.html">作品</a>
+        <a href="contact.html">联系</a>
+        <a class="current-page" href="admin.html">管理</a>
+      </nav>
+      <button class="theme-toggle" type="button" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M12 18a6 6 0 1 1 0-12a6 6 0 0 1 0 12Zm0-14.5a1 1 0 0 1 1 1V6a1 1 0 1 1-2 0V4.5a1 1 0 0 1 1-1Zm0 14.5a1 1 0 0 1 1 1V20a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1Zm8.5-7a1 1 0 0 1 1 1a1 1 0 0 1-1 1H19a1 1 0 1 1 0-2h1.5ZM5 12a1 1 0 1 1 0 2H3.5a1 1 0 1 1 0-2H5Zm12.728-6.728a1 1 0 0 1 1.414 0a1 1 0 0 1 0 1.414l-1.06 1.06a1 1 0 1 1-1.415-1.414l1.06-1.06ZM6.747 17.313a1 1 0 0 1 1.414 0a1 1 0 0 1 0 1.414l-1.06 1.06a1 1 0 0 1-1.414-1.414l1.06-1.06Zm12.395 1.06a1 1 0 0 1-1.414 1.414l-1.06-1.06a1 1 0 1 1 1.414-1.414l1.06 1.06ZM8.162 6.747a1 1 0 1 1-1.414 1.414l-1.06-1.06A1 1 0 1 1 7.1 5.687l1.06 1.06Z"
+          />
+        </svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M21 12.8A8.5 8.5 0 0 1 11.2 3a7 7 0 1 0 9.8 9.8Z"
+          />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section" id="admin">
+      <div class="section-title" data-reveal>
+        <h2>内容管理中心</h2>
+        <p>使用 Markdown 编辑文章内容，数据会保存到本地浏览器，可导出 JSON 发布。</p>
+      </div>
+      <div class="admin-layout" data-reveal>
+        <aside class="admin-sidebar">
+          <div class="admin-sidebar-header">
+            <h3>文章列表</h3>
+            <button class="button ghost" type="button" data-new-post>新建文章</button>
+          </div>
+          <div class="admin-list" data-admin-list></div>
+        </aside>
+        <div class="admin-editor">
+          <form class="admin-form" data-admin-form>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="postTitle">标题</label>
+                <input id="postTitle" name="title" type="text" required />
+              </div>
+              <div class="form-field">
+                <label for="postCategory">分类</label>
+                <input id="postCategory" name="category" type="text" placeholder="例如：系统设计" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="postDate">发布日期</label>
+                <input id="postDate" name="date" type="date" required />
+              </div>
+              <div class="form-field">
+                <label for="postReadTime">阅读时长</label>
+                <input id="postReadTime" name="readTime" type="text" placeholder="例如：8 分钟阅读" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="postCover">封面描述</label>
+                <input id="postCover" name="cover" type="text" placeholder="例如：项目截图 / 主题配图" />
+              </div>
+              <div class="form-field">
+                <label for="postTags">标签（逗号分隔）</label>
+                <input id="postTags" name="tags" type="text" placeholder="性能, 数据, 工程" />
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="postSummary">摘要</label>
+              <textarea id="postSummary" name="summary" rows="3" required></textarea>
+            </div>
+            <div class="form-field">
+              <label for="postContent">正文（Markdown）</label>
+              <textarea id="postContent" name="content" rows="12" required></textarea>
+            </div>
+            <div class="form-actions">
+              <button class="button primary" type="submit">保存/更新</button>
+              <button class="button ghost" type="button" data-delete-post>删除</button>
+            </div>
+          </form>
+          <div class="admin-preview">
+            <div class="preview-header">
+              <h3>Markdown 预览</h3>
+            </div>
+            <div class="post-content" data-preview></div>
+          </div>
+        </div>
+      </div>
+      <div class="admin-actions" data-reveal>
+        <button class="button primary" type="button" data-save-local>保存到本地浏览器</button>
+        <button class="button ghost" type="button" data-download-json>下载 JSON</button>
+        <button class="button ghost" type="button" data-reset-data>恢复线上数据</button>
+      </div>
+      <p class="admin-note" data-reveal>
+        发布说明：将下载后的 JSON 覆盖到 <code>data/posts.json</code>，提交到 GitHub 即可更新线上内容。
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 你的名字 · 个人博客</p>
+      <div class="footer-links">
+        <a href="#">知乎</a>
+        <a href="#">微博</a>
+        <a href="#">小红书</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+  <script src="main.js" defer></script>
+  <script src="admin.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>作品集｜你的名字</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      const theme = localStorage.getItem('theme');
+      if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="projects">
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <div>
+          <h1>你的名字</h1>
+          <p class="subtitle">工科生 · 数据与系统 · 前端工程师</p>
+        </div>
+      </div>
+      <nav class="site-nav">
+        <a href="index.html">首页</a>
+        <a href="posts.html">文章</a>
+        <a class="current-page" href="projects.html">作品</a>
+        <a href="contact.html">联系</a>
+        <a href="admin.html">管理</a>
+      </nav>
+      <button class="theme-toggle" type="button" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M12 18a6 6 0 1 1 0-12a6 6 0 0 1 0 12Zm0-14.5a1 1 0 0 1 1 1V6a1 1 0 1 1-2 0V4.5a1 1 0 0 1 1-1Zm0 14.5a1 1 0 0 1 1 1V20a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1Zm8.5-7a1 1 0 0 1 1 1a1 1 0 0 1-1 1H19a1 1 0 1 1 0-2h1.5ZM5 12a1 1 0 1 1 0 2H3.5a1 1 0 1 1 0-2H5Zm12.728-6.728a1 1 0 0 1 1.414 0a1 1 0 0 1 0 1.414l-1.06 1.06a1 1 0 1 1-1.415-1.414l1.06-1.06ZM6.747 17.313a1 1 0 0 1 1.414 0a1 1 0 0 1 0 1.414l-1.06 1.06a1 1 0 0 1-1.414-1.414l1.06-1.06Zm12.395 1.06a1 1 0 0 1-1.414 1.414l-1.06-1.06a1 1 0 1 1 1.414-1.414l1.06 1.06ZM8.162 6.747a1 1 0 1 1-1.414 1.414l-1.06-1.06A1 1 0 1 1 7.1 5.687l1.06 1.06Z"
+          />
+        </svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M21 12.8A8.5 8.5 0 0 1 11.2 3a7 7 0 1 0 9.8 9.8Z"
+          />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section" id="projects">
+      <div class="section-title" data-reveal>
+        <h2>作品与项目</h2>
+        <p>集中展示正在推进或已完成的项目，便于独立维护。</p>
+      </div>
+      <div class="grid project-grid">
+        <div class="project-card" data-reveal>
+          <div class="photo-placeholder">
+            <span>项目展示位</span>
+            <small>建议：产品界面 / 交互原型</small>
+          </div>
+          <div class="project-body">
+            <h3>旅居地图应用</h3>
+            <p>为远程工作者打造的目的地筛选工具，强调体验路线与社区。</p>
+            <div class="project-tags">
+              <span>Product</span>
+              <span>UI</span>
+              <span>Brand</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card" data-reveal>
+          <div class="photo-placeholder">
+            <span>项目展示位</span>
+            <small>建议：数据仪表盘 / 分析图表</small>
+          </div>
+          <div class="project-body">
+            <h3>创作者数据看板</h3>
+            <p>通过仪表盘帮助创作者了解增长趋势，并提供内容策略建议。</p>
+            <div class="project-tags">
+              <span>Data</span>
+              <span>Dashboard</span>
+              <span>Design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 你的名字 · 个人博客</p>
+      <div class="footer-links">
+        <a href="#">知乎</a>
+        <a href="#">微博</a>
+        <a href="#">小红书</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>

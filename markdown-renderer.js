@@ -19,7 +19,17 @@
     return value.replace(/<!--([\s\S]*?)-->/g, '');
   }
 
-  function parseInline(text) {
+  function resolveRelativeUrl(url, basePath) {
+    if (!url || !basePath) return url;
+    const trimmed = url.trim();
+    if (!trimmed) return trimmed;
+    if (trimmed.startsWith(basePath)) return trimmed;
+    if (/^(?:[a-z][a-z0-9+.-]*:|#|\/)/i.test(trimmed)) return trimmed;
+    const normalized = trimmed.replace(/^\.?\//, '');
+    return `${basePath}${normalized}`;
+  }
+
+  function parseInline(text, basePath) {
     if (!text) return '';
     const codeSpans = [];
 
@@ -35,16 +45,19 @@
       .replace(/!\[([^\]]*)\]\(\s*<([^>]+)>\s*(?:\"([^\"]*)\")?\s*\)/g, (_match, alt, url, title) => {
         const safeAlt = escapeHtml(alt);
         const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
-        return `<img src="${url}" alt="${safeAlt}" loading="lazy"${titleAttr} />`;
+        const resolvedUrl = resolveRelativeUrl(url, basePath);
+        return `<img src="${resolvedUrl}" alt="${safeAlt}" loading="lazy"${titleAttr} />`;
       })
       .replace(/!\[([^\]]*)\]\(\s*([^\s)]+)(?:\s+\"([^\"]*)\")?\s*\)/g, (_match, alt, url, title) => {
         const safeAlt = escapeHtml(alt);
         const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
-        return `<img src="${url}" alt="${safeAlt}" loading="lazy"${titleAttr} />`;
+        const resolvedUrl = resolveRelativeUrl(url, basePath);
+        return `<img src="${resolvedUrl}" alt="${safeAlt}" loading="lazy"${titleAttr} />`;
       });
 
     working = working.replace(/\[([^\]]+)\]\(([^\s)]+)\)/g, (_match, label, url) => {
-      return `<a href="${url}" target="_blank" rel="noopener">${label}</a>`;
+      const resolvedUrl = resolveRelativeUrl(url, basePath);
+      return `<a href="${resolvedUrl}" target="_blank" rel="noopener">${label}</a>`;
     });
 
     working = working.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
@@ -59,7 +72,7 @@
     return working;
   }
 
-  function renderMarkdown(source) {
+  function renderMarkdown(source, basePath = '') {
     if (!source) return '';
     const normalized = source.replace(/\r\n/g, '\n');
     const lines = normalized.split('\n');
@@ -98,7 +111,7 @@
       if (/^#{1,6}\s+/.test(line)) {
         const level = line.match(/^#{1,6}/)[0].length;
         const text = line.replace(/^#{1,6}\s+/, '');
-        output.push(`<h${level}>${parseInline(text)}</h${level}>`);
+        output.push(`<h${level}>${parseInline(text, basePath)}</h${level}>`);
         index += 1;
         continue;
       }
@@ -109,14 +122,14 @@
           quoteLines.push(lines[index].replace(/^>\s?/, ''));
           index += 1;
         }
-        output.push(`<blockquote><p>${parseInline(quoteLines.join('\n'))}</p></blockquote>`);
+        output.push(`<blockquote><p>${parseInline(quoteLines.join('\n'), basePath)}</p></blockquote>`);
         continue;
       }
 
       if (/^(\*|-|\+)\s+/.test(line)) {
         const items = [];
         while (index < lines.length && /^(\*|-|\+)\s+/.test(lines[index])) {
-          items.push(`<li>${parseInline(lines[index].replace(/^(\*|-|\+)\s+/, ''))}</li>`);
+          items.push(`<li>${parseInline(lines[index].replace(/^(\*|-|\+)\s+/, ''), basePath)}</li>`);
           index += 1;
         }
         output.push(`<ul>${items.join('')}</ul>`);
@@ -126,7 +139,7 @@
       if (/^\d+\.\s+/.test(line)) {
         const items = [];
         while (index < lines.length && /^\d+\.\s+/.test(lines[index])) {
-          items.push(`<li>${parseInline(lines[index].replace(/^\d+\.\s+/, ''))}</li>`);
+          items.push(`<li>${parseInline(lines[index].replace(/^\d+\.\s+/, ''), basePath)}</li>`);
           index += 1;
         }
         output.push(`<ol>${items.join('')}</ol>`);
@@ -148,9 +161,9 @@
           index += 1;
         }
 
-        const headerHtml = headerCells.map((cell) => `<th>${parseInline(cell)}</th>`).join('');
+        const headerHtml = headerCells.map((cell) => `<th>${parseInline(cell, basePath)}</th>`).join('');
         const bodyHtml = bodyRows
-          .map((row) => `<tr>${row.map((cell) => `<td>${parseInline(cell)}</td>`).join('')}</tr>`)
+          .map((row) => `<tr>${row.map((cell) => `<td>${parseInline(cell, basePath)}</td>`).join('')}</tr>`)
           .join('');
         output.push(`<table><thead><tr>${headerHtml}</tr></thead><tbody>${bodyHtml}</tbody></table>`);
         continue;
@@ -162,7 +175,7 @@
         paragraphLines.push(lines[index]);
         index += 1;
       }
-      const paragraph = parseInline(paragraphLines.join('\n').replace(/\n{2,}/g, '\n'));
+      const paragraph = parseInline(paragraphLines.join('\n').replace(/\n{2,}/g, '\n'), basePath);
       output.push(`<p>${paragraph.replace(/\n/g, '<br />')}</p>`);
     }
 

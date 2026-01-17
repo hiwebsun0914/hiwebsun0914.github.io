@@ -19,7 +19,7 @@
     if (!url) return url;
     const trimmed = url.trim();
     if (!trimmed) return trimmed;
-    if (/^(?:[a-z][a-z0-9+.-]*:|#|\/)/i.test(trimmed)) return trimmed;
+    if (trimmed.startsWith(basePath)) return trimmed;
     const normalized = trimmed.replace(/^\.?\//, '');
     return `${basePath}${normalized}`;
   }
@@ -94,9 +94,9 @@
 
   function renderPreview(content) {
     const html = window.marked
-      ? window.marked.parse(content || '')
+      ? window.marked.parse(content || '', { baseUrl: postAssetsBase })
       : window.renderMarkdown
-        ? window.renderMarkdown(content || '')
+        ? window.renderMarkdown(content || '', postAssetsBase)
         : content || '';
     previewEl.innerHTML = html || '<p class="muted">暂无预览内容。</p>';
     updateRelativeImages(previewEl, postAssetsBase);

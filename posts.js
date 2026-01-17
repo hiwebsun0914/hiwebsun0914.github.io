@@ -72,9 +72,9 @@
 
     const tags = Array.isArray(post.tags) ? post.tags : [];
     const contentHtml = window.marked
-      ? window.marked.parse(post.content || '')
+      ? window.marked.parse(post.content || '', { baseUrl: postAssetsBase })
       : window.renderMarkdown
-        ? window.renderMarkdown(post.content || '')
+        ? window.renderMarkdown(post.content || '', postAssetsBase)
         : post.content || '';
     const cover = resolveRelativeUrl(post.cover?.trim(), postAssetsBase);
 

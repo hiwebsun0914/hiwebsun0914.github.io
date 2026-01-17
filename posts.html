@@ -57,7 +57,7 @@
     <section class="section" id="posts">
       <div class="section-title" data-reveal>
         <h2>文章库</h2>
-        <p>统一的 JSON 内容仓库 + Markdown 正文渲染，不再为每篇文章创建 HTML。</p>
+        <p>固定目录中的 Markdown 自动渲染，无需为每篇文章创建 HTML。</p>
       </div>
       <div class="posts-layout">
         <div class="posts-list" data-posts-list data-reveal></div>
@@ -82,6 +82,7 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+  <script src="content-loader.js" defer></script>
   <script src="main.js" defer></script>
   <script src="posts.js" defer></script>
 </body>

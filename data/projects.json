@@ -1,0 +1,23 @@
+[
+  {
+    "title": "旅居地图应用",
+    "summary": "为远程工作者打造的目的地筛选工具，强调体验路线与社区。",
+    "image": "img/life.jpg",
+    "tags": ["Product", "UI", "Brand"],
+    "link": "#"
+  },
+  {
+    "title": "创作者数据看板",
+    "summary": "通过仪表盘帮助创作者了解增长趋势，并提供内容策略建议。",
+    "image": "img/annotation.jpg",
+    "tags": ["Data", "Dashboard", "Design"],
+    "link": "#"
+  },
+  {
+    "title": "实验记录知识库",
+    "summary": "把实验日志、结果和复盘汇总成可检索的知识体系。",
+    "image": "img/library.jpg",
+    "tags": ["Research", "Workflow", "Docs"],
+    "link": "#"
+  }
+]

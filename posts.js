@@ -13,22 +13,27 @@
     return url.replace(/^\.\//, '').replace(/^\//, '');
   }
 
+  function resolveAssetUrl(url) {
+    if (!isRelativeUrl(url)) return url;
+    const normalized = normalizeRelativeUrl(url);
+    if (normalized.startsWith(assetBasePath)) return normalized;
+    return `${assetBasePath}${normalized}`;
+  }
+
   function resolveRelativeAssets(container) {
     const images = Array.from(container.querySelectorAll('img[src]'));
     const links = Array.from(container.querySelectorAll('a[href]'));
 
     images.forEach((img) => {
       const src = img.getAttribute('src');
-      if (isRelativeUrl(src)) {
-        img.setAttribute('src', `${assetBasePath}${normalizeRelativeUrl(src)}`);
-      }
+      if (!src) return;
+      img.setAttribute('src', resolveAssetUrl(src));
     });
 
     links.forEach((link) => {
       const href = link.getAttribute('href');
-      if (isRelativeUrl(href)) {
-        link.setAttribute('href', `${assetBasePath}${normalizeRelativeUrl(href)}`);
-      }
+      if (!href) return;
+      link.setAttribute('href', resolveAssetUrl(href));
     });
   }
 

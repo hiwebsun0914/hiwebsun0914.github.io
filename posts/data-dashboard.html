@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>如何用传感器日志做出稳定的数据看板｜你的名字</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      const theme = localStorage.getItem('theme');
+      if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <div>
+          <h1>你的名字</h1>
+          <p class="subtitle">工科生 · 数据与系统 · 前端工程师</p>
+        </div>
+      </div>
+      <nav class="site-nav">
+        <a href="../index.html#home">首页</a>
+        <a href="../index.html#posts">文章</a>
+        <a href="../index.html#projects">作品</a>
+        <a href="../index.html#guestbook">留言</a>
+        <a href="../index.html#contact">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container article-layout">
+    <div class="article-hero">
+      <p class="badge">工程实践 · 6 分钟阅读</p>
+      <h1>如何用传感器日志做出稳定的数据看板</h1>
+      <div class="article-meta">
+        <span>作者：你的名字</span>
+        <span>更新：2025-04-12</span>
+        <span>关键词：数据采集、仪表盘</span>
+      </div>
+    </div>
+    <article class="article-body">
+      <h2>1. 数据入口：统一采样频率</h2>
+      <p>先把采样频率统一到 1Hz，并设置采样偏差阈值，这样仪表盘的趋势才有意义。</p>
+      <h2>2. 清洗规则：过滤异常值</h2>
+      <p>用三倍标准差过滤异常点，再把缺失片段补齐为线性插值，保证图表平滑。</p>
+      <h2>3. 指标分层：核心 KPI 与辅助指标</h2>
+      <p>核心 KPI 只展示 3~5 个，辅助指标折叠到详情页，避免信息过载。</p>
+      <h2>4. 自动化：定时生成日报</h2>
+      <p>用脚本每天生成报告，节省人工整理时间。</p>
+    </article>
+    <div class="article-nav">
+      <a class="button ghost" href="performance-notes.html">← 上一篇：博客性能拆解</a>
+      <a class="button primary" href="circuit-debugging.html">下一篇：电路调试定位法 →</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 你的名字 · 个人博客</p>
+      <div class="footer-links">
+        <a href="../index.html#posts">文章</a>
+        <a href="../index.html#guestbook">留言</a>
+        <a href="../index.html#contact">联系</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

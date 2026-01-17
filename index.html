@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>个人博客｜你的名字</title>
+  <title>个人博客｜你的名字 · 工科生</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -26,7 +26,7 @@
         <span class="brand-dot"></span>
         <div>
           <h1>你的名字</h1>
-          <p class="subtitle">内容创作者 · 设计师 · 前端工程师</p>
+          <p class="subtitle">工科生 · 数据与系统 · 前端工程师</p>
         </div>
       </div>
       <nav class="site-nav">
@@ -34,6 +34,7 @@
         <a href="#posts">文章</a>
         <a href="#projects">作品</a>
         <a href="#photos">相册</a>
+        <a href="#guestbook">留言</a>
         <a href="#contact">联系</a>
       </nav>
       <button class="theme-toggle" type="button" id="themeToggle" aria-label="切换主题" title="切换主题">
@@ -57,9 +58,10 @@
     <section class="hero" id="home">
       <div class="hero-content" data-reveal>
         <p class="badge">个人博客 · 2025</p>
-        <h2>记录灵感、项目与生活的线上空间</h2>
+        <h2>记录实验、项目与思考的线上空间</h2>
         <p class="lead">
-          这里分享前端开发、产品思考、创作笔记与生活灵感。欢迎通过文章了解我的工作方式，或在作品集中查看最新项目。
+          我是一名工科生，喜欢把问题拆成可验证的假设，再通过实验与工程实践解决它。这里记录前端开发、系统设计与实验笔记，
+          欢迎通过文章了解我的方法论，或在作品集中查看最新项目。
         </p>
         <div class="hero-actions">
           <a class="button primary" href="#posts">查看最新文章</a>
@@ -68,11 +70,11 @@
         <div class="hero-meta">
           <div>
             <strong>12+</strong>
-            <span>精选文章</span>
+            <span>实验/项目笔记</span>
           </div>
           <div>
             <strong>6</strong>
-            <span>正在进行的项目</span>
+            <span>工程实践项目</span>
           </div>
           <div>
             <strong>2025</strong>
@@ -88,12 +90,12 @@
           </div>
           <div class="card-info">
             <h3>Hi, 我是你的名字</h3>
-            <p>专注于打造具有温度的数字体验，也热衷于记录思考与生活碎片。</p>
+            <p>专注于将工程思维带入产品落地，也热衷于记录实验过程与验证结论。</p>
             <div class="tag-list">
-              <span>UI/UX</span>
+              <span>系统设计</span>
               <span>Web</span>
-              <span>写作</span>
-              <span>摄影</span>
+              <span>数据分析</span>
+              <span>工程实验</span>
             </div>
           </div>
         </div>
@@ -103,45 +105,85 @@
     <section class="section" id="posts">
       <div class="section-title" data-reveal>
         <h2>精选文章</h2>
-        <p>从流行的个人博客布局中汲取灵感，使用卡片式内容 + 阅读时长提示。</p>
+        <p>以分页展示实验记录与工程文章，支持快速浏览与定位。</p>
       </div>
-      <div class="grid posts-grid">
-        <article class="post-card" data-reveal>
+      <div class="grid posts-grid" data-posts-grid>
+        <article class="post-card" data-page="1" data-reveal>
           <div class="photo-placeholder">
             <span>文章封面位</span>
             <small>建议：项目截图 / 主题配图</small>
           </div>
           <div class="post-body">
-            <p class="post-meta">设计 · 8 分钟阅读</p>
-            <h3>打造更有故事感的产品首页</h3>
-            <p>用叙事结构梳理产品价值，将复杂功能转化为清晰的用户旅程。</p>
-            <a class="link" href="#">阅读全文</a>
+            <p class="post-meta">系统设计 · 8 分钟阅读</p>
+            <h3>用工程方法拆解个人博客性能</h3>
+            <p>从指标拆分、采样实验到性能回归，构建可复用的优化流程。</p>
+            <a class="link" href="posts/performance-notes.html">阅读全文</a>
           </div>
         </article>
-        <article class="post-card" data-reveal>
+        <article class="post-card" data-page="1" data-reveal>
           <div class="photo-placeholder">
             <span>文章封面位</span>
             <small>建议：工作场景 / 创作过程</small>
           </div>
           <div class="post-body">
-            <p class="post-meta">开发 · 6 分钟阅读</p>
-            <h3>我在项目中使用的前端组件体系</h3>
-            <p>从开源库中提炼设计规范，建立可复用的视觉与交互语言。</p>
-            <a class="link" href="#">阅读全文</a>
+            <p class="post-meta">工程实践 · 6 分钟阅读</p>
+            <h3>如何用传感器日志做出稳定的数据看板</h3>
+            <p>记录从采样、清洗到可视化仪表盘的完整流程。</p>
+            <a class="link" href="posts/data-dashboard.html">阅读全文</a>
           </div>
         </article>
-        <article class="post-card" data-reveal>
+        <article class="post-card" data-page="1" data-reveal>
           <div class="photo-placeholder">
             <span>文章封面位</span>
             <small>建议：生活旅行 / 灵感照片</small>
           </div>
           <div class="post-body">
-            <p class="post-meta">生活 · 4 分钟阅读</p>
-            <h3>关于灵感收集的三种方式</h3>
-            <p>从日常观察到系统化归档，持续积累属于你的灵感素材库。</p>
-            <a class="link" href="#">阅读全文</a>
+            <p class="post-meta">实验记录 · 4 分钟阅读</p>
+            <h3>电路调试中的三种快速定位法</h3>
+            <p>用可重复的排障步骤，提升实验效率。</p>
+            <a class="link" href="posts/circuit-debugging.html">阅读全文</a>
           </div>
         </article>
+        <article class="post-card" data-page="2" data-reveal>
+          <div class="photo-placeholder">
+            <span>文章封面位</span>
+            <small>建议：实验室 / 设备细节</small>
+          </div>
+          <div class="post-body">
+            <p class="post-meta">实验笔记 · 5 分钟阅读</p>
+            <h3>用热力学视角理解能量管理</h3>
+            <p>把课堂公式转化为可落地的系统能耗评估。</p>
+            <a class="link" href="posts/energy-notes.html">阅读全文</a>
+          </div>
+        </article>
+        <article class="post-card" data-page="2" data-reveal>
+          <div class="photo-placeholder">
+            <span>文章封面位</span>
+            <small>建议：仪表盘 / 数据曲线</small>
+          </div>
+          <div class="post-body">
+            <p class="post-meta">数据实验 · 7 分钟阅读</p>
+            <h3>把实验数据整理成可追踪的知识库</h3>
+            <p>从采集模板到标签体系，建立个人科研知识库。</p>
+            <a class="link" href="posts/lab-notes.html">阅读全文</a>
+          </div>
+        </article>
+        <article class="post-card" data-page="2" data-reveal>
+          <div class="photo-placeholder">
+            <span>文章封面位</span>
+            <small>建议：协作 / 白板记录</small>
+          </div>
+          <div class="post-body">
+            <p class="post-meta">团队协作 · 6 分钟阅读</p>
+            <h3>如何在项目中建立可复现的实验流程</h3>
+            <p>用流程图和实验日志，保证协作与复现性。</p>
+            <a class="link" href="posts/research-process.html">阅读全文</a>
+          </div>
+        </article>
+      </div>
+      <div class="pagination" data-pagination>
+        <button class="page-button" type="button" data-page="1">1</button>
+        <button class="page-button" type="button" data-page="2">2</button>
       </div>
     </section>
 
@@ -225,6 +267,31 @@
           <span>联系页照片位</span>
           <small>建议：工作肖像 / 活动现场</small>
         </div>
+      </div>
+    </section>
+
+    <section class="section" id="guestbook">
+      <div class="section-title" data-reveal>
+        <h2>离线留言板</h2>
+        <p>留言会保存在当前浏览器中，适合本地离线记录与测试。</p>
+      </div>
+      <div class="guestbook" data-reveal>
+        <form class="guestbook-form" id="guestbookForm">
+          <div class="form-field">
+            <label for="guestName">称呼</label>
+            <input id="guestName" name="guestName" type="text" placeholder="例如：实验室同学" maxlength="24" required />
+          </div>
+          <div class="form-field">
+            <label for="guestMessage">留言内容</label>
+            <textarea id="guestMessage" name="guestMessage" rows="4" placeholder="记录你的想法或建议" maxlength="200" required></textarea>
+          </div>
+          <div class="form-actions">
+            <button class="button primary" type="submit">保存留言</button>
+            <button class="button ghost" type="reset">清空</button>
+          </div>
+          <p class="offline-note">提示：留言仅保存在本地浏览器，清除缓存后会丢失。</p>
+        </form>
+        <div class="guestbook-list" id="guestbookList" aria-live="polite"></div>
       </div>
     </section>
   </main>

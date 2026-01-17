@@ -209,6 +209,7 @@ h1 {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2.5rem;
   padding: 3rem 0 2rem;
+  align-items: stretch;
 }
 
 .js [data-reveal] {
@@ -305,6 +306,8 @@ h1 {
   animation: float 6.5s ease-in-out infinite;
   will-change: transform;
   transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex;
+  align-self: stretch;
 }
 
 .hero-card {
@@ -313,8 +316,10 @@ h1 {
   padding: 1.5rem;
   box-shadow: var(--shadow);
   display: grid;
+  grid-template-rows: auto 1fr;
   gap: 1.5rem;
   border: 1px solid var(--border);
+  height: 100%;
 }
 
 [data-tilt] {
@@ -571,10 +576,13 @@ h1 {
   align-items: center;
   justify-content: center;
   min-height: 160px;
+  height: 100%;
 }
 
 .media-frame.large {
   min-height: 100px;
+  max-height: 240px;
+  aspect-ratio: 4 / 3;
 }
 
 .media-frame img {
@@ -856,14 +864,59 @@ h1 {
 
 .posts-layout {
   display: grid;
-  grid-template-columns: minmax(200px, 0.8fr) minmax(0, 2.2fr);
+  grid-template-columns: 1fr;
   gap: 2rem;
   align-items: start;
+  position: relative;
+}
+
+.posts-layout::before {
+  content: "目录";
+  position: fixed;
+  top: 45%;
+  left: 0;
+  width: 22px;
+  padding: 0.45rem 0.25rem;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  writing-mode: vertical-rl;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  z-index: 9;
+  cursor: pointer;
 }
 
 .posts-list {
+  position: fixed;
+  top: 120px;
+  left: 0;
+  bottom: 2rem;
+  width: min(280px, 78vw);
+  padding: 1rem 1rem 1.5rem 1rem;
   display: grid;
   gap: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  box-shadow: var(--shadow);
+  overflow-y: auto;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 220ms ease, opacity 220ms ease;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.posts-layout:hover .posts-list,
+.posts-layout:focus-within .posts-list,
+.posts-list:hover,
+.posts-list:focus-within {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .post-list-item {
@@ -895,6 +948,7 @@ h1 {
   padding: 2rem;
   background: var(--surface);
   min-height: 320px;
+  width: 100%;
 }
 
 .post-view-empty {
@@ -1150,6 +1204,12 @@ h1 {
 @media (max-width: 960px) {
   .posts-layout {
     grid-template-columns: 1fr;
+  }
+
+  .posts-list {
+    top: 96px;
+    bottom: 1.5rem;
+    transform: translateX(-100%);
   }
 
   .admin-layout {

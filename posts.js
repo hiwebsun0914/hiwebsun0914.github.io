@@ -2,6 +2,35 @@
   const listEl = document.querySelector('[data-posts-list]');
   const viewEl = document.querySelector('[data-post-view]');
   if (!listEl || !viewEl || !window.ContentLoader) return;
+  const assetBasePath = 'data/posts/';
+
+  function isRelativeUrl(url) {
+    if (!url) return false;
+    return !/^(?:[a-z][a-z0-9+.-]*:|\/\/|#|\/)/i.test(url);
+  }
+
+  function normalizeRelativeUrl(url) {
+    return url.replace(/^\.\//, '').replace(/^\//, '');
+  }
+
+  function resolveRelativeAssets(container) {
+    const images = Array.from(container.querySelectorAll('img[src]'));
+    const links = Array.from(container.querySelectorAll('a[href]'));
+
+    images.forEach((img) => {
+      const src = img.getAttribute('src');
+      if (isRelativeUrl(src)) {
+        img.setAttribute('src', `${assetBasePath}${normalizeRelativeUrl(src)}`);
+      }
+    });
+
+    links.forEach((link) => {
+      const href = link.getAttribute('href');
+      if (isRelativeUrl(href)) {
+        link.setAttribute('href', `${assetBasePath}${normalizeRelativeUrl(href)}`);
+      }
+    });
+  }
 
   async function loadPosts() {
     return window.ContentLoader.loadPosts();
@@ -70,6 +99,7 @@
       ${cover ? `<div class="media-frame post-cover"><img src="${cover}" alt="${post.title}封面" loading="lazy" /></div>` : ''}
       <div class="post-content">${contentHtml}</div>
     `;
+    resolveRelativeAssets(viewEl);
   }
 
   function getInitialId() {

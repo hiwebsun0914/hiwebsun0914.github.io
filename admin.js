@@ -72,7 +72,11 @@
   }
 
   function renderPreview(content) {
-    const html = window.marked ? window.marked.parse(content || '') : content || '';
+    const html = window.marked
+      ? window.marked.parse(content || '')
+      : window.renderMarkdown
+        ? window.renderMarkdown(content || '')
+        : content || '';
     previewEl.innerHTML = html || '<p class="muted">暂无预览内容。</p>';
   }
 

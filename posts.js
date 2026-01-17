@@ -50,7 +50,11 @@
     if (!post) return;
 
     const tags = Array.isArray(post.tags) ? post.tags : [];
-    const contentHtml = window.marked ? window.marked.parse(post.content || '') : post.content || '';
+    const contentHtml = window.marked
+      ? window.marked.parse(post.content || '')
+      : window.renderMarkdown
+        ? window.renderMarkdown(post.content || '')
+        : post.content || '';
     const cover = post.cover?.trim();
 
     viewEl.innerHTML = `

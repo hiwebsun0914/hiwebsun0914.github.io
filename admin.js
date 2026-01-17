@@ -20,7 +20,6 @@
     const trimmed = url.trim();
     if (!trimmed) return trimmed;
     if (trimmed.startsWith(basePath)) return trimmed;
-    if (/^(?:[a-z][a-z0-9+.-]*:|#|\/)/i.test(trimmed)) return trimmed;
     const normalized = trimmed.replace(/^\.?\//, '');
     return `${basePath}${normalized}`;
   }

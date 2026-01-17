@@ -114,11 +114,26 @@
     return params.get('id');
   }
 
+  function normalizeId(value) {
+    if (!value) return '';
+    const trimmed = value.trim().replace(/\.md$/i, '');
+    return trimmed.toLowerCase();
+  }
+
+  function matchesId(post, initialId) {
+    if (!post || !initialId) return false;
+    const normalized = normalizeId(initialId);
+    if (!normalized) return false;
+    if (normalizeId(post.id) === normalized) return true;
+    if (post.file && normalizeId(post.file) === normalized) return true;
+    return false;
+  }
+
   async function init() {
     const posts = await loadPosts();
     const sorted = posts.slice().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     const initialId = getInitialId();
-    const initialPost = initialId ? sorted.find((post) => post.id === initialId) : sorted[0];
+    const initialPost = initialId ? sorted.find((post) => matchesId(post, initialId)) : sorted[0];
 
     renderList(sorted, initialPost?.id);
 

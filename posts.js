@@ -13,6 +13,14 @@
     return `${basePath}${normalized}`;
   }
 
+  function isCoverImage(value) {
+    if (!value) return false;
+    const trimmed = value.trim();
+    if (!trimmed) return false;
+    if (trimmed.startsWith('data:image/')) return true;
+    return /\.(png|jpe?g|gif|webp|avif|svg)(?:\?.*)?(?:#.*)?$/i.test(trimmed);
+  }
+
   function updateRelativeImages(container, basePath) {
     const images = container.querySelectorAll('img');
     images.forEach((image) => {
@@ -76,7 +84,8 @@
       : window.renderMarkdown
         ? window.renderMarkdown(post.content || '', postAssetsBase)
         : post.content || '';
-    const cover = resolveRelativeUrl(post.cover?.trim(), postAssetsBase);
+    const rawCover = post.cover?.trim();
+    const cover = isCoverImage(rawCover) ? resolveRelativeUrl(rawCover, postAssetsBase) : '';
 
     viewEl.innerHTML = `
       <header class="post-view-header">

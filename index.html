@@ -19,7 +19,7 @@
   </script>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
+<body data-page="home">
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand">
@@ -30,12 +30,11 @@
         </div>
       </div>
       <nav class="site-nav">
-        <a class="current-page" href="#home">首页</a>
-        <a href="#posts">文章</a>
-        <a href="#projects">作品</a>
-        <a href="#photos">相册</a>
-        <a href="#guestbook">留言</a>
-        <a href="#contact">联系</a>
+        <a class="current-page" href="index.html">首页</a>
+        <a href="posts.html">文章</a>
+        <a href="projects.html">作品</a>
+        <a href="contact.html">联系</a>
+        <a href="admin.html">管理</a>
       </nav>
       <button class="theme-toggle" type="button" id="themeToggle" aria-label="切换主题" title="切换主题">
         <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
@@ -64,8 +63,8 @@
           欢迎通过文章了解我的方法论，或在作品集中查看最新项目。
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="#posts">查看最新文章</a>
-          <a class="button ghost" href="#contact">合作联系</a>
+          <a class="button primary" href="posts.html">进入文章库</a>
+          <a class="button ghost" href="contact.html">合作联系</a>
         </div>
         <div class="hero-meta">
           <div>
@@ -102,196 +101,39 @@
       </div>
     </section>
 
-    <section class="section" id="posts">
+    <section class="section" id="quick-links">
       <div class="section-title" data-reveal>
-        <h2>精选文章</h2>
-        <p>以分页展示实验记录与工程文章，支持快速浏览与定位。</p>
+        <h2>快速入口</h2>
+        <p>将文章、作品与联系拆分为独立页面，方便集中管理与更新。</p>
       </div>
-      <div class="grid posts-grid" data-posts-grid>
-        <article class="post-card" data-page="1" data-reveal>
-          <div class="photo-placeholder">
-            <span>文章封面位</span>
-            <small>建议：项目截图 / 主题配图</small>
-          </div>
-          <div class="post-body">
-            <p class="post-meta">系统设计 · 8 分钟阅读</p>
-            <h3>用工程方法拆解个人博客性能</h3>
-            <p>从指标拆分、采样实验到性能回归，构建可复用的优化流程。</p>
-            <a class="link" href="posts/performance-notes.html">阅读全文</a>
-          </div>
-        </article>
-        <article class="post-card" data-page="1" data-reveal>
-          <div class="photo-placeholder">
-            <span>文章封面位</span>
-            <small>建议：工作场景 / 创作过程</small>
-          </div>
-          <div class="post-body">
-            <p class="post-meta">工程实践 · 6 分钟阅读</p>
-            <h3>如何用传感器日志做出稳定的数据看板</h3>
-            <p>记录从采样、清洗到可视化仪表盘的完整流程。</p>
-            <a class="link" href="posts/data-dashboard.html">阅读全文</a>
-          </div>
-        </article>
-        <article class="post-card" data-page="1" data-reveal>
-          <div class="photo-placeholder">
-            <span>文章封面位</span>
-            <small>建议：生活旅行 / 灵感照片</small>
-          </div>
-          <div class="post-body">
-            <p class="post-meta">实验记录 · 4 分钟阅读</p>
-            <h3>电路调试中的三种快速定位法</h3>
-            <p>用可重复的排障步骤，提升实验效率。</p>
-            <a class="link" href="posts/circuit-debugging.html">阅读全文</a>
-          </div>
-        </article>
-        <article class="post-card" data-page="2" data-reveal>
-          <div class="photo-placeholder">
-            <span>文章封面位</span>
-            <small>建议：实验室 / 设备细节</small>
-          </div>
-          <div class="post-body">
-            <p class="post-meta">实验笔记 · 5 分钟阅读</p>
-            <h3>用热力学视角理解能量管理</h3>
-            <p>把课堂公式转化为可落地的系统能耗评估。</p>
-            <a class="link" href="posts/energy-notes.html">阅读全文</a>
-          </div>
-        </article>
-        <article class="post-card" data-page="2" data-reveal>
-          <div class="photo-placeholder">
-            <span>文章封面位</span>
-            <small>建议：仪表盘 / 数据曲线</small>
-          </div>
-          <div class="post-body">
-            <p class="post-meta">数据实验 · 7 分钟阅读</p>
-            <h3>把实验数据整理成可追踪的知识库</h3>
-            <p>从采集模板到标签体系，建立个人科研知识库。</p>
-            <a class="link" href="posts/lab-notes.html">阅读全文</a>
-          </div>
-        </article>
-        <article class="post-card" data-page="2" data-reveal>
-          <div class="photo-placeholder">
-            <span>文章封面位</span>
-            <small>建议：协作 / 白板记录</small>
-          </div>
-          <div class="post-body">
-            <p class="post-meta">团队协作 · 6 分钟阅读</p>
-            <h3>如何在项目中建立可复现的实验流程</h3>
-            <p>用流程图和实验日志，保证协作与复现性。</p>
-            <a class="link" href="posts/research-process.html">阅读全文</a>
-          </div>
-        </article>
-      </div>
-      <div class="pagination" data-pagination>
-        <button class="page-button" type="button" data-page="1">1</button>
-        <button class="page-button" type="button" data-page="2">2</button>
+      <div class="grid quick-links-grid" data-reveal>
+        <a class="quick-link" href="posts.html">
+          <h3>文章库</h3>
+          <p>统一管理所有文章内容与 Markdown 正文。</p>
+        </a>
+        <a class="quick-link" href="projects.html">
+          <h3>作品集</h3>
+          <p>展示项目进展、成果与视觉素材。</p>
+        </a>
+        <a class="quick-link" href="contact.html">
+          <h3>联系与留言</h3>
+          <p>集中展示联系渠道与 GitHub 留言入口。</p>
+        </a>
+        <a class="quick-link" href="admin.html">
+          <h3>内容管理</h3>
+          <p>在管理页编辑文章、导出数据并发布。</p>
+        </a>
       </div>
     </section>
 
-    <section class="section" id="projects">
+    <section class="section" id="latest-posts">
       <div class="section-title" data-reveal>
-        <h2>作品与项目</h2>
-        <p>展示最近完成或正在进行的项目，搭配清晰的视觉与成果说明。</p>
+        <h2>最新文章</h2>
+        <p>通过统一的内容数据文件渲染，避免每篇文章一个 HTML。</p>
       </div>
-      <div class="grid project-grid">
-        <div class="project-card" data-reveal>
-          <div class="photo-placeholder">
-            <span>项目展示位</span>
-            <small>建议：产品界面 / 交互原型</small>
-          </div>
-          <div class="project-body">
-            <h3>旅居地图应用</h3>
-            <p>为远程工作者打造的目的地筛选工具，强调体验路线与社区。</p>
-            <div class="project-tags">
-              <span>Product</span>
-              <span>UI</span>
-              <span>Brand</span>
-            </div>
-          </div>
-        </div>
-        <div class="project-card" data-reveal>
-          <div class="photo-placeholder">
-            <span>项目展示位</span>
-            <small>建议：数据仪表盘 / 分析图表</small>
-          </div>
-          <div class="project-body">
-            <h3>创作者数据看板</h3>
-            <p>通过仪表盘帮助创作者了解增长趋势，并提供内容策略建议。</p>
-            <div class="project-tags">
-              <span>Data</span>
-              <span>Dashboard</span>
-              <span>Design</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="photos">
-      <div class="section-title" data-reveal>
-        <h2>照片墙</h2>
-        <p>可放置旅行、工作或生活瞬间，打造更具个人气质的视觉模块。</p>
-      </div>
-      <div class="grid photo-grid" data-drag-scroll data-reveal>
-        <div class="photo-placeholder">
-          <span>照片 01</span>
-          <small>建议：旅行风景 / 城市街景</small>
-        </div>
-        <div class="photo-placeholder">
-          <span>照片 02</span>
-          <small>建议：工作台 / 桌面细节</small>
-        </div>
-        <div class="photo-placeholder">
-          <span>照片 03</span>
-          <small>建议：生活记录 / 兴趣爱好</small>
-        </div>
-        <div class="photo-placeholder">
-          <span>照片 04</span>
-          <small>建议：个人作品 / 手稿</small>
-        </div>
-      </div>
-      <p class="drag-hint">提示：可左右拖动查看更多</p>
-    </section>
-
-    <section class="section" id="contact">
-      <div class="cta" data-reveal>
-        <div>
-          <h2>保持联系</h2>
-          <p>如果你想合作、交流想法或获取简历，欢迎通过以下方式联系我。</p>
-          <ul class="contact-list">
-            <li>📮 Email：hello@example.com</li>
-            <li>💬 微信：yourwechat</li>
-            <li>🔗 GitHub：github.com/yourname</li>
-          </ul>
-        </div>
-        <div class="photo-placeholder">
-          <span>联系页照片位</span>
-          <small>建议：工作肖像 / 活动现场</small>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="guestbook">
-      <div class="section-title" data-reveal>
-        <h2>离线留言板</h2>
-        <p>留言会保存在当前浏览器中，适合本地离线记录与测试。</p>
-      </div>
-      <div class="guestbook" data-reveal>
-        <form class="guestbook-form" id="guestbookForm">
-          <div class="form-field">
-            <label for="guestName">称呼</label>
-            <input id="guestName" name="guestName" type="text" placeholder="例如：实验室同学" maxlength="24" required />
-          </div>
-          <div class="form-field">
-            <label for="guestMessage">留言内容</label>
-            <textarea id="guestMessage" name="guestMessage" rows="4" placeholder="记录你的想法或建议" maxlength="200" required></textarea>
-          </div>
-          <div class="form-actions">
-            <button class="button primary" type="submit">保存留言</button>
-            <button class="button ghost" type="reset">清空</button>
-          </div>
-          <p class="offline-note">提示：留言仅保存在本地浏览器，清除缓存后会丢失。</p>
-        </form>
-        <div class="guestbook-list" id="guestbookList" aria-live="polite"></div>
+      <div class="grid posts-grid" data-latest-posts data-reveal></div>
+      <div class="section-actions" data-reveal>
+        <a class="button ghost" href="posts.html">查看全部文章</a>
       </div>
     </section>
   </main>

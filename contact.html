@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>联系｜你的名字</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      const theme = localStorage.getItem('theme');
+      if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="contact">
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <div>
+          <h1>你的名字</h1>
+          <p class="subtitle">工科生 · 数据与系统 · 前端工程师</p>
+        </div>
+      </div>
+      <nav class="site-nav">
+        <a href="index.html">首页</a>
+        <a href="posts.html">文章</a>
+        <a href="projects.html">作品</a>
+        <a class="current-page" href="contact.html">联系</a>
+        <a href="admin.html">管理</a>
+      </nav>
+      <button class="theme-toggle" type="button" id="themeToggle" aria-label="切换主题" title="切换主题">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M12 18a6 6 0 1 1 0-12a6 6 0 0 1 0 12Zm0-14.5a1 1 0 0 1 1 1V6a1 1 0 1 1-2 0V4.5a1 1 0 0 1 1-1Zm0 14.5a1 1 0 0 1 1 1V20a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1Zm8.5-7a1 1 0 0 1 1 1a1 1 0 0 1-1 1H19a1 1 0 1 1 0-2h1.5ZM5 12a1 1 0 1 1 0 2H3.5a1 1 0 1 1 0-2H5Zm12.728-6.728a1 1 0 0 1 1.414 0a1 1 0 0 1 0 1.414l-1.06 1.06a1 1 0 1 1-1.415-1.414l1.06-1.06ZM6.747 17.313a1 1 0 0 1 1.414 0a1 1 0 0 1 0 1.414l-1.06 1.06a1 1 0 0 1-1.414-1.414l1.06-1.06Zm12.395 1.06a1 1 0 0 1-1.414 1.414l-1.06-1.06a1 1 0 1 1 1.414-1.414l1.06 1.06ZM8.162 6.747a1 1 0 1 1-1.414 1.414l-1.06-1.06A1 1 0 1 1 7.1 5.687l1.06 1.06Z"
+          />
+        </svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M21 12.8A8.5 8.5 0 0 1 11.2 3a7 7 0 1 0 9.8 9.8Z"
+          />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section" id="contact">
+      <div class="section-title" data-reveal>
+        <h2>联系与合作</h2>
+        <p>将联系信息与公开留言渠道集中管理，保持独立清晰。</p>
+      </div>
+      <div class="cta" data-reveal>
+        <div>
+          <h3>保持联系</h3>
+          <p>如果你想合作、交流想法或获取简历，欢迎通过以下方式联系我。</p>
+          <ul class="contact-list">
+            <li>📮 Email：hello@example.com</li>
+            <li>💬 微信：yourwechat</li>
+            <li>🔗 GitHub：github.com/yourname</li>
+          </ul>
+        </div>
+        <div class="photo-placeholder">
+          <span>联系页照片位</span>
+          <small>建议：工作肖像 / 活动现场</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="github-guestbook">
+      <div class="section-title" data-reveal>
+        <h2>GitHub 开源留言</h2>
+        <p>使用 GitHub Issues / Discussions 作为留言入口，可离线填写后再提交。</p>
+      </div>
+      <div class="grid two-column" data-reveal>
+        <div class="card">
+          <h3>留言流程</h3>
+          <ol class="steps">
+            <li>下载留言模板：<a class="link" href="data/guestbook-template.md" download>guestbook-template.md</a></li>
+            <li>离线填写内容（Markdown 格式）。</li>
+            <li>在线时打开 GitHub 留言链接并粘贴提交。</li>
+          </ol>
+        </div>
+        <div class="card">
+          <h3>开源留言入口</h3>
+          <p>将你的仓库地址替换到下方链接，启用 Issues 或 Discussions。</p>
+          <div class="link-card">
+            <a class="link" href="https://github.com/yourname/yourrepo/issues/new" target="_blank" rel="noreferrer">前往 GitHub Issues 留言</a>
+          </div>
+          <p class="muted">提示：你也可以配置 Issue Template，让留言提交更统一。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 你的名字 · 个人博客</p>
+      <div class="footer-links">
+        <a href="#">知乎</a>
+        <a href="#">微博</a>
+        <a href="#">小红书</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>

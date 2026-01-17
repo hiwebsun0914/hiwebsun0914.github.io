@@ -21,39 +21,51 @@
 
   function parseInline(text) {
     if (!text) return '';
-    const codeSpans = [];
+    const tokens = [];
+    const tokenPrefix = '@@MARKDOWN_TOKEN_';
+    const tokenSuffix = '@@';
 
-    let working = stripHtmlComments(text).replace(/`([^`]+)`/g, (match, code) => {
-      const token = `__CODESPAN_${codeSpans.length}__`;
-      codeSpans.push(`<code>${escapeHtml(code)}</code>`);
+    const stashToken = (html) => {
+      const token = `${tokenPrefix}${tokens.length}${tokenSuffix}`;
+      tokens.push(html);
       return token;
+    };
+
+    let working = stripHtmlComments(text);
+
+    working = working.replace(/`([^`]+)`/g, (_match, code) => {
+      return stashToken(`<code>${escapeHtml(code)}</code>`);
+    });
+
+    const imagePattern = /!\[([^\]]*)\]\(\s*(<[^>]+>|[^)\s]+)\s*(?:(?:"([^"]*)")|(?:'([^']*)'))?\s*\)/g;
+    working = working.replace(imagePattern, (_match, alt, rawUrl, titleDouble, titleSingle) => {
+      const url = rawUrl.startsWith('<') && rawUrl.endsWith('>') ? rawUrl.slice(1, -1).trim() : rawUrl.trim();
+      const title = titleDouble || titleSingle;
+      const safeAlt = escapeHtml(alt);
+      const safeUrl = escapeHtml(url);
+      const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
+      return stashToken(`<img src="${safeUrl}" alt="${safeAlt}" loading="lazy"${titleAttr} />`);
+    });
+
+    const linkPattern = /\[([^\]]+)\]\(\s*(<[^>]+>|[^)\s]+)\s*(?:(?:"([^"]*)")|(?:'([^']*)'))?\s*\)/g;
+    working = working.replace(linkPattern, (_match, label, rawUrl, titleDouble, titleSingle) => {
+      const url = rawUrl.startsWith('<') && rawUrl.endsWith('>') ? rawUrl.slice(1, -1).trim() : rawUrl.trim();
+      const title = titleDouble || titleSingle;
+      const safeLabel = escapeHtml(label);
+      const safeUrl = escapeHtml(url);
+      const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
+      return stashToken(`<a href="${safeUrl}" target="_blank" rel="noopener"${titleAttr}>${safeLabel}</a>`);
     });
 
     working = escapeHtml(working);
-
-    working = working
-      .replace(/!\[([^\]]*)\]\(\s*<([^>]+)>\s*(?:\"([^\"]*)\")?\s*\)/g, (_match, alt, url, title) => {
-        const safeAlt = escapeHtml(alt);
-        const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
-        return `<img src="${url}" alt="${safeAlt}" loading="lazy"${titleAttr} />`;
-      })
-      .replace(/!\[([^\]]*)\]\(\s*([^\s)]+)(?:\s+\"([^\"]*)\")?\s*\)/g, (_match, alt, url, title) => {
-        const safeAlt = escapeHtml(alt);
-        const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
-        return `<img src="${url}" alt="${safeAlt}" loading="lazy"${titleAttr} />`;
-      });
-
-    working = working.replace(/\[([^\]]+)\]\(([^\s)]+)\)/g, (_match, label, url) => {
-      return `<a href="${url}" target="_blank" rel="noopener">${label}</a>`;
-    });
 
     working = working.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
     working = working.replace(/__([^_]+)__/g, '<strong>$1</strong>');
     working = working.replace(/\*([^*]+)\*/g, '<em>$1</em>');
     working = working.replace(/_([^_]+)_/g, '<em>$1</em>');
 
-    codeSpans.forEach((code, index) => {
-      working = working.replace(`__CODESPAN_${index}__`, code);
+    tokens.forEach((tokenHtml, index) => {
+      working = working.replace(`${tokenPrefix}${index}${tokenSuffix}`, tokenHtml);
     });
 
     return working;
@@ -170,4 +182,25 @@
   }
 
   window.renderMarkdown = renderMarkdown;
+  if (window.marked) {
+    window.marked.setOptions({ gfm: true, breaks: true });
+    window.marked.use({
+      renderer: {
+        image(href, title, text) {
+          if (!href) return '';
+          const safeHref = escapeHtml(href);
+          const safeAlt = escapeHtml(text || '');
+          const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
+          return `<img src="${safeHref}" alt="${safeAlt}" loading="lazy"${titleAttr} />`;
+        },
+        link(href, title, text) {
+          if (!href) return text || '';
+          const safeHref = escapeHtml(href);
+          const safeText = escapeHtml(text || '');
+          const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
+          return `<a href="${safeHref}" target="_blank" rel="noopener"${titleAttr}>${safeText}</a>`;
+        },
+      },
+    });
+  }
 })();

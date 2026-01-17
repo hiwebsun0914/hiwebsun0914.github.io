@@ -114,6 +114,8 @@
 
   function setupSidebarHover() {
     if (!layoutEl || !handleEl || !listEl) return;
+
+    const edgeSize = 32;
     let isHovering = false;
     let hideTimer = null;
 
@@ -151,6 +153,19 @@
     layoutEl.addEventListener('focusout', (event) => {
       if (!layoutEl.contains(event.relatedTarget)) hideSidebar(0);
     });
+
+    document.addEventListener('mousemove', (event) => {
+      if (event.clientX <= edgeSize) {
+        showSidebar();
+        return;
+      }
+      if (!isHovering) hideSidebar();
+    });
+
+    document.addEventListener('mouseleave', () => {
+      if (!isHovering) hideSidebar(0);
+    });
+
   }
 
   async function init() {

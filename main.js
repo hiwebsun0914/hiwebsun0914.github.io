@@ -24,14 +24,14 @@
       root.dataset.theme = theme;
 
       if (!themeToggle) return;
-      const isDark = theme !== 'light';
+      const isDark = theme === 'dark';
       themeToggle.setAttribute('aria-pressed', String(isDark));
       themeToggle.setAttribute('aria-label', isDark ? '切换到浅色模式' : '切换到深色模式');
       themeToggle.setAttribute('title', isDark ? '切换到浅色' : '切换到深色');
     }
 
     const storedTheme = safeStorageGet(storageKey);
-    const initialTheme = storedTheme === 'light' ? 'light' : 'dark';
+    const initialTheme = storedTheme === 'dark' ? 'dark' : 'light';
     applyTheme(initialTheme);
 
     themeToggle?.addEventListener('click', () => {

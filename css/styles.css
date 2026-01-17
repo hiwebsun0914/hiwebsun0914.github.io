@@ -911,9 +911,8 @@ h1 {
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  transform: translateX(-100%);
-  opacity: 0;
-  pointer-events: none;
+  transform: translateX(calc(-100% + 18px));
+  opacity: 0.2;
   transition: transform 220ms ease, opacity 220ms ease;
   z-index: 8;
 }
@@ -921,6 +920,23 @@ h1 {
 .posts-list::-webkit-scrollbar {
   width: 0;
   height: 0;
+}
+
+.posts-list::before {
+  content: "目录";
+  position: absolute;
+  top: 40%;
+  right: -18px;
+  width: 18px;
+  padding: 0.4rem 0.2rem;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  writing-mode: vertical-rl;
+  text-align: center;
+  letter-spacing: 0.1rem;
 }
 
 .posts-list-handle:hover + .posts-list,

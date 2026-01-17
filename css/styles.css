@@ -574,7 +574,7 @@ h1 {
 }
 
 .media-frame.large {
-  min-height: 260px;
+  min-height: 100px;
 }
 
 .media-frame img {

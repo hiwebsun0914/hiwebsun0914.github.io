@@ -19,6 +19,22 @@
     return value.replace(/<!--([\s\S]*?)-->/g, '');
   }
 
+  function normalizeImageUrl(url, basePath = 'data/posts/') {
+    if (!url) return url;
+    const trimmed = url.trim();
+    const normalizedBase = basePath.endsWith('/') ? basePath : `${basePath}/`;
+    if (trimmed.startsWith(normalizedBase)) {
+      return trimmed;
+    }
+    if (
+      /^(?:[a-z][a-z0-9+.-]*:|\/|#)/i.test(trimmed) ||
+      trimmed.startsWith('//')
+    ) {
+      return trimmed;
+    }
+    return `${normalizedBase}${trimmed.replace(/^\.\//, '')}`;
+  }
+
   function parseInline(text) {
     if (!text) return '';
     const tokens = [];
@@ -40,9 +56,10 @@
     const imagePattern = /!\[([^\]]*)\]\(\s*(<[^>]+>|[^)\s]+)\s*(?:(?:"([^"]*)")|(?:'([^']*)'))?\s*\)/g;
     working = working.replace(imagePattern, (_match, alt, rawUrl, titleDouble, titleSingle) => {
       const url = rawUrl.startsWith('<') && rawUrl.endsWith('>') ? rawUrl.slice(1, -1).trim() : rawUrl.trim();
+      const normalizedUrl = normalizeImageUrl(url);
       const title = titleDouble || titleSingle;
       const safeAlt = escapeHtml(alt);
-      const safeUrl = escapeHtml(url);
+      const safeUrl = escapeHtml(normalizedUrl);
       const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
       return stashToken(`<img src="${safeUrl}" alt="${safeAlt}" loading="lazy"${titleAttr} />`);
     });
@@ -188,7 +205,7 @@
       renderer: {
         image(href, title, text) {
           if (!href) return '';
-          const safeHref = escapeHtml(href);
+          const safeHref = escapeHtml(normalizeImageUrl(href));
           const safeAlt = escapeHtml(text || '');
           const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
           return `<img src="${safeHref}" alt="${safeAlt}" loading="lazy"${titleAttr} />`;

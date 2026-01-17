@@ -3,7 +3,6 @@
   const viewEl = document.querySelector('[data-post-view]');
   if (!listEl || !viewEl || !window.ContentLoader) return;
   const assetBasePath = 'data/posts/';
-  const assetBaseUrl = new URL(assetBasePath, window.location.href);
 
   function isRelativeUrl(url) {
     if (!url) return false;
@@ -18,14 +17,8 @@
     if (!isRelativeUrl(url)) return url;
     const normalized = normalizeRelativeUrl(url);
     if (!normalized) return url;
-    try {
-      if (normalized.startsWith(assetBasePath)) {
-        return new URL(normalized, window.location.href).toString();
-      }
-      return new URL(normalized, assetBaseUrl).toString();
-    } catch {
-      return url;
-    }
+    if (normalized.startsWith(assetBasePath)) return normalized;
+    return `${assetBasePath}${normalized}`;
   }
 
   function resolveRelativeAssets(container) {

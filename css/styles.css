@@ -950,7 +950,9 @@ h1 {
 
 
 .js .posts-layout.is-sidebar-visible .posts-list-handle,
-.js .posts-layout.is-sidebar-visible .posts-list {
+.js .posts-layout.is-sidebar-visible .posts-list,
+.js .posts-layout:focus-within .posts-list-handle,
+.js .posts-layout:focus-within .posts-list {
   transform: translateX(0);
   opacity: 1;
   pointer-events: auto;

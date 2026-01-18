@@ -1,10 +1,12 @@
 (() => {
   const listEl = document.querySelector('[data-posts-list]');
+  const listPanel = document.getElementById('postsListPanel');
   const viewEl = document.querySelector('[data-post-view]');
   const layoutEl = document.querySelector('.posts-layout');
   const handleEl = document.querySelector('.posts-list-handle');
-  if (!listEl || !viewEl || !window.ContentLoader) return;
+  if (!listEl || !listPanel || !viewEl || !window.ContentLoader) return;
   const postAssetsBase = 'data/posts/';
+  let hideSidebarImmediate = () => {};
 
   function resolveRelativeUrl(url, basePath) {
     if (!url) return url;
@@ -64,6 +66,8 @@
         const url = new URL(window.location.href);
         url.searchParams.set('id', post.id);
         window.history.replaceState({}, '', url);
+        hideSidebarImmediate();
+        item.blur();
       });
 
       listEl.append(item);
@@ -113,35 +117,53 @@
   }
 
   function setupSidebarHover() {
-    if (!layoutEl || !handleEl || !listEl) return;
+    if (!layoutEl || !handleEl || !listEl || !listPanel) return;
 
     const edgeSize = 32;
     let isHovering = false;
     let hideTimer = null;
+    let forceHideUntil = 0;
+
+    const isForceHiding = () => Date.now() < forceHideUntil;
+
+    const setSidebarVisible = (visible) => {
+      layoutEl.classList.toggle('is-sidebar-visible', visible);
+      if (listPanel) {
+        listPanel.setAttribute('aria-hidden', String(!visible));
+      }
+      if (handleEl) {
+        handleEl.setAttribute('aria-expanded', String(visible));
+      }
+    };
 
     const showSidebar = () => {
+      if (isForceHiding()) return;
       if (hideTimer) {
         window.clearTimeout(hideTimer);
         hideTimer = null;
       }
-      layoutEl.classList.add('is-sidebar-visible');
+      setSidebarVisible(true);
     };
 
-    const hideSidebar = (delay = 180) => {
+    const hideSidebar = (delay = 180, options = {}) => {
       if (hideTimer) window.clearTimeout(hideTimer);
       hideTimer = window.setTimeout(() => {
-        if (!isHovering) layoutEl.classList.remove('is-sidebar-visible');
+        hideTimer = null;
+        if (options.force || !isHovering) {
+          setSidebarVisible(false);
+        }
       }, delay);
     };
 
     const enterSidebar = () => {
+      if (isForceHiding()) return;
       isHovering = true;
       showSidebar();
     };
 
     const leaveSidebar = () => {
       isHovering = false;
-      hideSidebar();
+      hideSidebarImmediate();
     };
 
     [handleEl, listEl].forEach((element) => {
@@ -166,6 +188,21 @@
       if (!isHovering) hideSidebar(0);
     });
 
+    hideSidebarImmediate = () => {
+      forceHideUntil = Date.now() + 400;
+      isHovering = false;
+      hideSidebar(0, { force: true });
+      if (handleEl && typeof handleEl.blur === 'function') {
+        handleEl.blur();
+      }
+    };
+
+    if (viewEl) {
+      viewEl.addEventListener('pointerenter', hideSidebarImmediate);
+    }
+
+    setSidebarVisible(false);
+
   }
 
   async function init() {
@@ -174,8 +211,8 @@
     const initialId = getInitialId();
     const initialPost = initialId ? sorted.find((post) => post.id === initialId) : sorted[0];
 
-    renderList(sorted, initialPost?.id);
     setupSidebarHover();
+    renderList(sorted, initialPost?.id);
 
     if (initialPost) {
       renderView(initialPost);

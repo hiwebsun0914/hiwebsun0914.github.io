@@ -872,91 +872,113 @@ h1 {
   position: relative;
 }
 
-.posts-list-handle {
-  position: fixed;
-  top: 40%;
-  left: 0;
-  width: 18px;
-  padding: 0.4rem 0.2rem;
-  background: var(--primary);
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  writing-mode: vertical-rl;
-  text-align: center;
-  letter-spacing: 0.1rem;
-  border: none;
-  cursor: pointer;
-  z-index: 9;
-  transition: transform 220ms ease, opacity 220ms ease;
-}
+  .posts-list-handle {
+    position: fixed;
+    top: 40%;
+    left: 0;
+    width: 18px;
+    padding: 0.4rem 0.2rem;
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    writing-mode: vertical-rl;
+    text-align: center;
+    letter-spacing: 0.1rem;
+    border: none;
+    cursor: pointer;
+    z-index: 9;
+    transition: transform 220ms ease, opacity 220ms ease;
+    overflow: visible;
+  }
 
-.posts-list-handle:focus-visible {
-  outline-color: rgba(255, 255, 255, 0.9);
-}
+  .posts-list-handle:focus-visible {
+    outline-color: rgba(255, 255, 255, 0.9);
+  }
 
-.posts-list {
-  position: fixed;
-  top: 120px;
-  left: 0;
-  bottom: 2rem;
-  width: min(280px, 78vw);
-  padding: 1rem 1rem 1.5rem 1rem;
-  display: grid;
-  gap: 0.75rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  box-shadow: var(--shadow);
-  overflow-y: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  transform: translateX(calc(-100% + 18px));
-  opacity: 0.2;
-  transition: transform 220ms ease, opacity 220ms ease;
-  z-index: 8;
-}
+  .posts-list-handle[aria-expanded="true"] {
+    transform: translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
 
-.posts-list::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
+  .posts-list-panel {
+    position: fixed;
+    top: 120px;
+    left: 0;
+    bottom: 2rem;
+    width: min(280px, 78vw);
+    overflow: visible;
+    pointer-events: none;
+    transform: translateX(calc(-100% + 18px));
+    opacity: 0.2;
+    transition: transform 220ms ease, opacity 220ms ease;
+    z-index: 8;
+  }
 
-.posts-list::before {
-  content: "目录";
-  position: absolute;
-  top: 40%;
-  right: -18px;
-  width: 18px;
-  padding: 0.4rem 0.2rem;
-  background: var(--primary);
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  writing-mode: vertical-rl;
-  text-align: center;
-  letter-spacing: 0.1rem;
-}
+  .posts-list-panel::before {
+    content: "目录";
+    position: absolute;
+    top: 40%;
+    left: -18px;
+    width: 18px;
+    padding: 0.4rem 0.2rem;
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    writing-mode: vertical-rl;
+    text-align: center;
+    letter-spacing: 0.1rem;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 220ms ease;
+    pointer-events: none;
+  }
 
+  .posts-list {
+    width: 100%;
+    height: 100%;
+    padding: 1rem 1rem 1.5rem 1rem;
+    display: grid;
+    gap: 0.75rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    box-shadow: var(--shadow);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
 
-.js .posts-list-handle,
-.js .posts-list {
-  transform: translateX(-100%);
-  opacity: 0;
-  pointer-events: none;
-}
+  .posts-list::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 
+  .js .posts-list-panel {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
 
-.js .posts-layout.is-sidebar-visible .posts-list-handle,
-.js .posts-layout.is-sidebar-visible .posts-list,
-.js .posts-layout:focus-within .posts-list-handle,
-.js .posts-layout:focus-within .posts-list {
-  transform: translateX(0);
-  opacity: 1;
-  pointer-events: auto;
-}
+  .js .posts-list-panel[aria-hidden="false"] {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .js .posts-list-panel[aria-hidden="false"]::before {
+    opacity: 1;
+  }
+
+  .posts-list-handle[aria-expanded="true"] {
+    transform: translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
 
 .post-list-item {
   padding: 1rem;
@@ -1245,7 +1267,7 @@ h1 {
     grid-template-columns: 1fr;
   }
 
-  .posts-list {
+  .posts-list-panel {
     top: 96px;
     bottom: 1.5rem;
     transform: translateX(calc(-100% + 14px));

@@ -149,6 +149,11 @@
       element.addEventListener('pointerleave', leaveSidebar);
     });
 
+    layoutEl.addEventListener('focusin', showSidebar);
+    layoutEl.addEventListener('focusout', (event) => {
+      if (!layoutEl.contains(event.relatedTarget)) hideSidebar(0);
+    });
+
     document.addEventListener('mousemove', (event) => {
       if (event.clientX <= edgeSize) {
         showSidebar();
@@ -158,8 +163,7 @@
     });
 
     document.addEventListener('mouseleave', () => {
-      isHovering = false;
-      hideSidebar(0);
+      if (!isHovering) hideSidebar(0);
     });
 
   }

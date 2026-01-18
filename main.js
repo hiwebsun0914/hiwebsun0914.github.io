@@ -218,7 +218,6 @@
           <img src="${cover}" alt="${post.title}封面" loading="lazy" />
         </div>
         <div class="post-body">
-          <p class="post-meta">${post.category || '文章'} · ${post.readTime || ''}</p>
           <h3>${post.title}</h3>
           <p>${post.summary || ''}</p>
           <a class="link" href="posts.html?id=${post.id}">阅读全文</a>

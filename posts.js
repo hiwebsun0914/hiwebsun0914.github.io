@@ -1,5 +1,6 @@
 (() => {
   const listEl = document.querySelector('[data-posts-list]');
+  const listContainerEl = document.querySelector('[data-posts-list-container]');
   const viewEl = document.querySelector('[data-post-view]');
   const layoutEl = document.querySelector('.posts-layout');
   const handleEl = document.querySelector('.posts-list-handle');
@@ -112,8 +113,13 @@
     return params.get('id');
   }
 
+  function updateSidebarA11y(isVisible) {
+    if (handleEl) handleEl.setAttribute('aria-expanded', String(isVisible));
+    if (listContainerEl) listContainerEl.setAttribute('aria-hidden', String(!isVisible));
+  }
+
   function setupSidebarHover() {
-    if (!layoutEl || !handleEl || !listEl) return;
+    if (!layoutEl || !handleEl || !listContainerEl) return;
 
     const edgeSize = 32;
     let isHovering = false;
@@ -125,12 +131,16 @@
         hideTimer = null;
       }
       layoutEl.classList.add('is-sidebar-visible');
+      updateSidebarA11y(true);
     };
 
     const hideSidebar = (delay = 180) => {
       if (hideTimer) window.clearTimeout(hideTimer);
       hideTimer = window.setTimeout(() => {
-        if (!isHovering) layoutEl.classList.remove('is-sidebar-visible');
+        if (!isHovering) {
+          layoutEl.classList.remove('is-sidebar-visible');
+          updateSidebarA11y(false);
+        }
       }, delay);
     };
 
@@ -144,7 +154,7 @@
       hideSidebar();
     };
 
-    [handleEl, listEl].forEach((element) => {
+    [handleEl, listContainerEl].forEach((element) => {
       element.addEventListener('pointerenter', enterSidebar);
       element.addEventListener('pointerleave', leaveSidebar);
     });
@@ -175,6 +185,7 @@
     const initialPost = initialId ? sorted.find((post) => post.id === initialId) : sorted[0];
 
     renderList(sorted, initialPost?.id);
+    updateSidebarA11y(false);
     setupSidebarHover();
 
     if (initialPost) {

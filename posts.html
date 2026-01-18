@@ -59,8 +59,18 @@
         <p>固定目录中的 Markdown 自动渲染，无需为每篇文章创建 HTML。</p>
       </div>
       <div class="posts-layout">
-        <button class="posts-list-handle" type="button" aria-label="打开文章目录">目录</button>
-        <div class="posts-list" data-posts-list data-reveal></div>
+        <button
+          class="posts-list-handle"
+          type="button"
+          aria-label="打开文章目录"
+          aria-expanded="false"
+          aria-controls="postsList"
+        >
+          目录
+        </button>
+        <div class="posts-list-container" data-posts-list-container aria-hidden="true">
+          <div id="postsList" class="posts-list" data-posts-list data-reveal></div>
+        </div>
         <article class="post-view" data-post-view data-reveal>
           <div class="post-view-empty">
             <p>从左侧选择一篇文章，或使用 URL 参数 <code>?id=文章ID</code> 直达阅读。</p>

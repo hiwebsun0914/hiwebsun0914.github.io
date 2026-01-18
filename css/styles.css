@@ -896,12 +896,20 @@ h1 {
   outline-color: rgba(255, 255, 255, 0.9);
 }
 
-.posts-list {
+.posts-list-container {
   position: fixed;
   top: 120px;
   left: 0;
   bottom: 2rem;
   width: min(280px, 78vw);
+  z-index: 8;
+  transform: translateX(calc(-100% + 18px));
+  opacity: 0.2;
+  transition: transform 220ms ease, opacity 220ms ease;
+}
+
+.posts-list {
+  height: 100%;
   padding: 1rem 1rem 1.5rem 1rem;
   display: grid;
   gap: 0.75rem;
@@ -912,10 +920,6 @@ h1 {
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  transform: translateX(calc(-100% + 18px));
-  opacity: 0.2;
-  transition: transform 220ms ease, opacity 220ms ease;
-  z-index: 8;
 }
 
 .posts-list::-webkit-scrollbar {
@@ -941,18 +945,15 @@ h1 {
 }
 
 
-.js .posts-list-handle,
-.js .posts-list {
+.js .posts-list-container {
   transform: translateX(-100%);
   opacity: 0;
   pointer-events: none;
 }
 
 
-.js .posts-layout.is-sidebar-visible .posts-list-handle,
-.js .posts-layout.is-sidebar-visible .posts-list,
-.js .posts-layout:focus-within .posts-list-handle,
-.js .posts-layout:focus-within .posts-list {
+.js .posts-layout.is-sidebar-visible .posts-list-container,
+.js .posts-layout:focus-within .posts-list-container {
   transform: translateX(0);
   opacity: 1;
   pointer-events: auto;

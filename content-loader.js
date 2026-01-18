@@ -66,7 +66,6 @@
           return {
             id,
             title: parsed.attributes.title || id,
-            category: parsed.attributes.category || '文章',
             readTime: parsed.attributes.readTime || '',
             date: parsed.attributes.date || '',
             cover: parsed.attributes.cover || '',

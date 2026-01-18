@@ -568,19 +568,17 @@ h1 {
 }
 
 .media-frame {
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
   overflow: hidden;
   background: rgba(255, 255, 255, 0.03);
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 160px;
+  min-height: 50px;
   height: 100%;
 }
 
 .media-frame.large {
-  min-height: 100px;
+  min-height: 50px;
   aspect-ratio: 1 / 1;
   width: min(260px, 100%);
   justify-self: center;
@@ -588,9 +586,8 @@ h1 {
 }
 
 .media-frame img {
-  width: 100%;
+  width: 50%;
   height: 100%;
-  object-fit: cover;
   display: block;
 }
 

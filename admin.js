@@ -35,6 +35,20 @@
     });
   }
 
+  function renderMath(container) {
+    if (!container || typeof window.renderMathInElement !== 'function') return;
+    window.renderMathInElement(container, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true },
+      ],
+      throwOnError: false,
+      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+    });
+  }
+
   function safeStorageGet(key) {
     try {
       return window.localStorage.getItem(key);
@@ -100,6 +114,7 @@
         : content || '';
     previewEl.innerHTML = html || '<p class="muted">暂无预览内容。</p>';
     updateRelativeImages(previewEl, postAssetsBase);
+    renderMath(previewEl);
   }
 
   function setActive(id) {

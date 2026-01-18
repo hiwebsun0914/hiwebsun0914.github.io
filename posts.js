@@ -55,7 +55,6 @@
       item.dataset.postId = post.id;
       item.innerHTML = `
         <span class="post-title">${post.title}</span>
-        <span class="post-meta">${post.category || '文章'} · ${post.readTime || ''}</span>
       `;
 
       if (post.id === activeId) item.classList.add('is-active');
@@ -95,7 +94,6 @@
 
     viewEl.innerHTML = `
       <header class="post-view-header">
-        <p class="post-meta">${post.category || '文章'} · ${post.readTime || ''}</p>
         <h2>${post.title}</h2>
         <p class="muted">${post.date || ''}</p>
         <p class="post-summary">${post.summary || ''}</p>

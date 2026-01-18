@@ -614,7 +614,7 @@ h1 {
 
 .media-frame-1 img {
   width: 50%;
-  height: 50%;
+  height: 100%;
   object-fit: cover;
   display: block;
 }

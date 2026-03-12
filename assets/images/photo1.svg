@@ -1,0 +1,8 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#cfeeff"/><stop offset="100%" stop-color="#e7f9e9"/></linearGradient></defs>
+  <rect width="1200" height="900" fill="url(#g1)"/>
+  <circle cx="940" cy="180" r="72" fill="#fff7c7"/>
+  <rect x="90" y="480" width="1020" height="220" rx="24" fill="#98cfe2"/>
+  <rect x="120" y="540" width="960" height="130" rx="18" fill="#7ab0c7"/>
+  <text x="600" y="820" text-anchor="middle" font-size="54" fill="#2d6279" font-family="Arial, sans-serif">晨光操场</text>
+</svg>

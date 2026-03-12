@@ -3,14 +3,125 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>某某同学的个人博客主页</title>
+    <title>中大智能工程 · 学生主页</title>
     <meta
       name="description"
-      content="大学生风格的清新个人博客主页，展示个人信息、博客文章、照片墙和留言板。"
+      content="中山大学智能工程学院学生会风格的个人博客主页，包含博客、照片墙和留言板。"
     />
+    <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <header class="site-header">
+      <nav class="navbar container" aria-label="主导航">
+        <a class="brand" href="#hero">中大智能工程小站</a>
+
+        <button class="nav-toggle" type="button" aria-label="切换导航菜单" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-menu">
+          <a class="nav-link" href="#hero">首页</a>
+          <a class="nav-link" href="#profile">个人信息</a>
+          <a class="nav-link" href="#links">外部链接</a>
+          <a class="nav-link" href="#blogs">博客</a>
+          <a class="nav-link" href="#gallery">照片墙</a>
+          <a class="nav-link" href="#guestbook">留言板</a>
+          <a class="nav-link nav-link-page" href="blogs.html">全部文章</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section id="hero" class="section hero">
+        <div class="container hero-grid card-soft">
+          <div class="hero-avatar-wrap">
+            <img id="hero-avatar" class="hero-avatar" src="assets/images/avatar.svg" alt="默认头像" />
+          </div>
+          <div class="hero-content">
+            <p id="hero-welcome" class="hero-welcome"></p>
+            <h1 id="hero-name"></h1>
+            <p id="hero-signature" class="hero-signature"></p>
+            <p id="hero-intro" class="hero-intro"></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="profile" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <h2>个人信息</h2>
+            <p>来自中山大学智能工程学院学生会的学习与成长记录。</p>
+          </div>
+          <div id="profile-content" class="card profile-card"></div>
+        </div>
+      </section>
+
+      <section id="links" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <h2>外部链接</h2>
+            <p>可替换成你自己的博客、GitHub 与知乎主页。</p>
+          </div>
+          <div id="links-grid" class="grid links-grid"></div>
+        </div>
+      </section>
+
+      <section id="blogs" class="section">
+        <div class="container">
+          <div class="section-heading section-heading-row">
+            <div>
+              <h2>博客文章</h2>
+              <p>学习、学生工作与校园生活的持续记录。</p>
+            </div>
+            <a class="text-btn" href="blogs.html">查看全部</a>
+          </div>
+          <div id="home-blogs-grid" class="grid blog-grid"></div>
+        </div>
+      </section>
+
+      <section id="gallery" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <h2>照片墙</h2>
+            <p>校园、活动与日常瞬间，点击图片可放大。</p>
+          </div>
+          <div id="gallery-grid" class="grid gallery-grid"></div>
+        </div>
+      </section>
+
+      <section id="guestbook" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <h2>留言板</h2>
+            <p>默认联动 GitHub Issue，识别失败时自动回退到本地留言。</p>
+          </div>
+          <div id="guestbook-root"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-row">
+        <div>
+          <p id="footer-copy"></p>
+          <p id="footer-slogan"></p>
+        </div>
+        <div id="footer-socials" class="footer-socials"></div>
+      </div>
+    </footer>
+
+    <div id="image-modal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-backdrop" data-close-modal="1"></div>
+      <div class="modal-content card">
+        <button type="button" class="modal-close" data-close-modal="1" aria-label="关闭">×</button>
+        <img id="modal-image" src="" alt="" />
+        <h3 id="modal-title"></h3>
+        <p id="modal-desc"></p>
+      </div>
+    </div>
+
+    <script type="module" src="js/home.js"></script>
   </body>
 </html>

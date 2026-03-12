@@ -44,7 +44,7 @@ function Navbar() {
           type="button"
           aria-label="回到首页"
         >
-          知夏的小站
+          中大智能工程小站
         </button>
 
         <button

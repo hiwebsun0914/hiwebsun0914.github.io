@@ -1,0 +1,7 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="g6" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#cfe5ff"/><stop offset="100%" stop-color="#d9f7f2"/></linearGradient></defs>
+  <rect width="1200" height="900" fill="url(#g6)"/>
+  <rect x="190" y="260" width="820" height="250" rx="16" fill="#91bdd7"/>
+  <rect x="140" y="540" width="920" height="180" rx="22" fill="#9ad7e1"/>
+  <text x="600" y="820" text-anchor="middle" font-size="54" fill="#2e6075" font-family="Arial, sans-serif">雨后校园</text>
+</svg>

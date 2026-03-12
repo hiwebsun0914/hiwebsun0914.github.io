@@ -1,80 +1,90 @@
-# 大学生个人博客 / 个人主页（React + Vite）
+# 中山大学智能工程学院学生会个人博客（免编译版）
 
-这个项目支持：
+这是一个 **纯 HTML + CSS + JavaScript** 的静态站点。
 
-- 本地开发预览
-- 推送到 GitHub 后自动部署到 GitHub Pages
-- 留言板自动联动当前仓库的 GitHub Issues（无需手填账号/仓库名）
+- 不需要 `npm run build`
+- 不需要任何编译工具
+- `clone` 后直接可打开使用
+- 推送到 GitHub 后可直接用 GitHub Pages 托管源码站点
 
-## 一次性准备
+## 目录（核心）
 
-```bash
-# 已安装可跳过
-conda install -n base -c conda-forge nodejs=20 -y
+```text
+.
+├─ index.html
+├─ blogs.html
+├─ article.html
+├─ styles/
+│  └─ main.css
+├─ js/
+│  ├─ data.js
+│  ├─ common.js
+│  ├─ home.js
+│  ├─ blogs-page.js
+│  ├─ article-page.js
+│  └─ guestbook.js
+└─ assets/
+   └─ images/
+      ├─ avatar.svg
+      ├─ photo1.svg
+      ├─ photo2.svg
+      ├─ photo3.svg
+      ├─ photo4.svg
+      ├─ photo5.svg
+      ├─ photo6.svg
+      ├─ photo7.svg
+      └─ photo8.svg
 ```
 
-## 本地运行
+## 本地直接使用
+
+方式 1：双击 `index.html` 直接打开。
+
+方式 2（推荐）：本地静态服务器预览。
 
 ```bash
 cd "/Users/hiwebsun/科研与成长/个人博客"
-npm install
-npm run dev
+python3 -m http.server 8080
 ```
 
-## 你要求的“只要 clone + push”部署流程
+浏览器打开：`http://localhost:8080`
 
-你自己登录 GitHub、建仓库、push 即可，不需要再跑额外脚本。
+## GitHub Pages（不编译部署）
 
-```bash
-cd "/Users/hiwebsun/科研与成长/个人博客"
-git init
-git add .
-git commit -m "init blog"
-git branch -M main
-git remote add origin https://github.com/<你的用户名>/<你的仓库名>.git
-git push -u origin main
-```
+你只需要：建仓库、push 源码。
 
-然后等待 GitHub Actions 自动部署（仓库里已带工作流）：
+然后在仓库设置：
 
-- `.github/workflows/deploy-pages.yml`
+1. `Settings -> Pages`
+2. `Build and deployment -> Source` 选择 `Deploy from a branch`
+3. Branch 选择 `main`，文件夹选择 `/ (root)`
+4. 保存
 
-站点地址：
+几分钟后访问：
 
-- `https://<你的用户名>.github.io/<你的仓库名>/`
+- `https://<你的用户名>.github.io/<仓库名>/`
 
-## 留言板（GitHub Issue 联动）
+## 留言板
 
-默认配置在 `src/data/siteData.js`：
+留言板默认是 `github-issues` 模式：
 
-```js
-export const guestbookConfig = {
-  mode: 'github-issues',
-  repo: 'auto',
-  issueTerm: '校园留言板',
-  label: 'guestbook',
-  theme: 'github-light'
-};
-```
+- 页面自动识别当前 GitHub 仓库（`repo: auto`）
+- 发布留言时跳转到仓库 Issue 新建页确认提交
+- 页面自动读取带 `guestbook` 标签的 Issue 列表
+- 如果当前不是 GitHub Pages，自动回退本地留言（localStorage）
 
-说明：
+配置文件：`js/data.js` 中 `guestbookConfig`。
 
-- `repo: 'auto'` 会自动识别当前 Pages 对应仓库
-- 留言发布时会跳转到该仓库的「新建 Issue」页面确认提交
-- 已发布的留言会在页面中自动读取并展示
+## 中大智能工程学院学生会示例信息位置
 
-## 常改内容
+- 个人信息：`js/data.js` 的 `heroData`、`profileData`
+- 外部链接：`js/data.js` 的 `externalLinks`
+- 博客文章：`js/data.js` 的 `blogs`
+- 照片墙：`js/data.js` 的 `galleryImages`
 
-- 个人信息：`src/data/siteData.js`
-- 博客文章：`src/data/blogs.js`
-- 照片墙：`src/data/gallery.js`
-- 本地留言初始数据：`src/data/guestbookSeed.js`
-- 图片资源：`public/assets/images/`
+## 图片占位说明
 
-## 如果要改回本地留言
+当前所有占位图都已放在 `assets/images/`，并已在各模块实际引用：
 
-`src/data/siteData.js` 中：
-
-```js
-mode: 'local'
-```
+- 头像：`avatar.svg`
+- 博客/照片墙占位：`photo1.svg` 到 `photo8.svg`

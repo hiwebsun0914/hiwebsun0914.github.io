@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>全部博客 - 中大智能工程小站</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar container" aria-label="主导航">
+        <a class="brand" href="index.html">中大智能工程小站</a>
+        <div class="nav-menu nav-menu-static">
+          <a class="nav-link" href="index.html">返回首页</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="sub-page">
+      <section class="section page-head">
+        <div class="container">
+          <h1>全部博客文章</h1>
+          <p id="blogs-count"></p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div id="blogs-grid" class="grid blog-grid"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-row">
+        <div>
+          <p id="footer-copy"></p>
+          <p id="footer-slogan"></p>
+        </div>
+        <div id="footer-socials" class="footer-socials"></div>
+      </div>
+    </footer>
+
+    <script type="module" src="js/blogs-page.js"></script>
+  </body>
+</html>

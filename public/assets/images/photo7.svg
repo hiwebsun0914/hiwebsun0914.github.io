@@ -1,0 +1,10 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="g7" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d7e6ff"/><stop offset="100%" stop-color="#ceeef9"/></linearGradient></defs>
+  <rect width="1200" height="900" fill="url(#g7)"/>
+  <rect x="110" y="220" width="980" height="500" rx="24" fill="#7ca4c2"/>
+  <rect x="180" y="300" width="840" height="330" rx="18" fill="#5f88a9"/>
+  <circle cx="300" cy="460" r="22" fill="#f7f2b0"/>
+  <circle cx="600" cy="460" r="22" fill="#f7f2b0"/>
+  <circle cx="900" cy="460" r="22" fill="#f7f2b0"/>
+  <text x="600" y="820" text-anchor="middle" font-size="54" fill="#2d556d" font-family="Arial, sans-serif">夜晚自习室</text>
+</svg>

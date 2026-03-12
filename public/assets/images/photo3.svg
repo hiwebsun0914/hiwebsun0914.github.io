@@ -1,0 +1,7 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ffe4c8"/><stop offset="100%" stop-color="#cce9ff"/></linearGradient></defs>
+  <rect width="1200" height="900" fill="url(#g3)"/>
+  <rect x="190" y="310" width="820" height="360" rx="18" fill="#88b8d4"/>
+  <rect x="235" y="200" width="730" height="120" rx="18" fill="#a5d3e8"/>
+  <text x="600" y="820" text-anchor="middle" font-size="54" fill="#345d73" font-family="Arial, sans-serif">晚霞教学楼</text>
+</svg>

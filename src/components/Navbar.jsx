@@ -44,7 +44,7 @@ function Navbar() {
           type="button"
           aria-label="回到首页"
         >
-          中大智能工程小站
+          SYSU·ISEer的小站
         </button>
 
         <button

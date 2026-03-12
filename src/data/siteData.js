@@ -1,8 +1,8 @@
 export const heroData = {
   name: '陈知行',
-  signature: '中山大学智能工程学院学生会成员，记录学习、服务与校园成长。',
+  signature: '来自中山大学智能工程学院，记录学习、服务与校园成长。',
   intro:
-    '你好，我是陈知行，来自中山大学智能工程学院，目前在学院学生会参与宣传与活动策划。这个主页会分享学习笔记、学生工作复盘和校园生活记录。',
+    '你好，我是陈知行，来自中山大学智能工程学院。这个主页会分享学习笔记、学生工作复盘和校园生活记录。',
   welcome: '欢迎来到我的主页，和你一起把大学生活过得热烈又踏实。',
   avatar: '/assets/images/avatar.svg'
 };
@@ -44,11 +44,11 @@ export const externalLinks = [
 
 export const footerData = {
   copyright: `© ${new Date().getFullYear()} 陈知行`,
-  slogan: '由中山大学智能工程学院学生会同学的个人主页驱动',
+  slogan: '由中山大学智能工程学院学生会设计的的个人主页驱动',
   socials: [
-    { label: 'GitHub', url: 'https://github.com/example-sysu-ise' },
-    { label: '博客', url: 'https://example.com/blog' },
-    { label: '知乎', url: 'https://www.zhihu.com/people/example-sysu-ise' }
+    { label: 'GitHub', url: 'https://github.com/' },
+    { label: '博客', url: 'https://blog.sina.com.cn/lm/temp/' },
+    { label: '知乎', url: 'https://www.zhihu.com/' }
   ]
 };
 

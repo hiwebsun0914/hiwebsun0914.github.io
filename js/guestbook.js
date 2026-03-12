@@ -106,8 +106,43 @@ function buildIssueUrl({ repo, label, nickname, message }) {
   return `https://github.com/${repo}/issues/new?${params.toString()}`;
 }
 
+async function fetchIssues(repo, extraQuery = {}) {
+  const query = new URLSearchParams({
+    state: 'all',
+    sort: 'created',
+    direction: 'desc',
+    per_page: '50'
+  });
+
+  Object.entries(extraQuery).forEach(([key, value]) => {
+    if (value) query.set(key, value);
+  });
+
+  const response = await fetch(`https://api.github.com/repos/${repo}/issues?${query.toString()}`);
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data.filter((item) => !item.pull_request);
+}
+
+function isGuestbookIssue(issue, label, issueTerm) {
+  const title = String(issue.title || '');
+  const body = String(issue.body || '');
+  const labels = Array.isArray(issue.labels) ? issue.labels.map((item) => item.name) : [];
+
+  if (labels.includes(label)) return true;
+  if (title.startsWith('[留言]')) return true;
+  if (issueTerm && title.includes(issueTerm)) return true;
+  if (body.includes('来自个人主页留言板')) return true;
+
+  return false;
+}
+
 async function renderGithubGuestbook(root, repo) {
   const label = guestbookConfig.label || 'guestbook';
+  const issueTerm = guestbookConfig.issueTerm || '';
 
   root.innerHTML = `
     <div class="github-guestbook-layout">
@@ -144,27 +179,21 @@ async function renderGithubGuestbook(root, repo) {
     }
 
     const url = buildIssueUrl({ repo, label, nickname: name, message });
-    tip.textContent = '已打开 GitHub 新建 Issue 页面，请确认发布。';
+    tip.textContent = '已打开 GitHub 新建 Issue 页面，请确认发布；发布后回到本页刷新即可看到。';
     window.open(url, '_blank', 'noopener,noreferrer');
   });
 
   const listWrap = document.getElementById('github-message-list');
 
   try {
-    const query = new URLSearchParams({
-      state: 'all',
-      sort: 'created',
-      direction: 'desc',
-      per_page: '30',
-      labels: label
-    });
+    let items = await fetchIssues(repo, { labels: label });
 
-    const response = await fetch(`https://api.github.com/repos/${repo}/issues?${query.toString()}`);
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
+    // 如果标签筛选不到数据，回退到全量 issues 再按留言特征筛选，
+    // 兼容“标签没创建/没打上标签”时留言不显示的问题。
+    if (!items.length) {
+      const allIssues = await fetchIssues(repo);
+      items = allIssues.filter((item) => isGuestbookIssue(item, label, issueTerm));
     }
-
-    const items = (await response.json()).filter((item) => !item.pull_request);
 
     if (!items.length) {
       listWrap.innerHTML = '<p class="github-loading">还没有留言，欢迎发布第一条。</p>';
@@ -185,8 +214,20 @@ async function renderGithubGuestbook(root, repo) {
         `
       )
       .join('');
-  } catch (_error) {
-    renderLocalGuestbook(root, 'GitHub 留言读取失败，已自动切换本地留言模式。');
+  } catch (error) {
+    const message = String(error?.message || '');
+    let tips = 'GitHub 留言读取失败，请稍后刷新页面重试。';
+
+    if (message.includes('403')) {
+      tips = 'GitHub API 访问频率暂时受限（HTTP 403），稍后刷新即可恢复。';
+    } else if (message.includes('404')) {
+      tips = `未找到仓库 ${repo}（HTTP 404），请确认仓库已公开且 Pages 地址正确。`;
+    }
+
+    listWrap.innerHTML = `
+      <p class="guestbook-notice">${escapeHtml(tips)}</p>
+      <a class="text-btn" href="https://github.com/${escapeHtml(repo)}/issues" target="_blank" rel="noreferrer">去仓库 Issues 查看</a>
+    `;
   }
 }
 
